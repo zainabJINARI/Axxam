@@ -1,7 +1,5 @@
 package ma.axxam.paiement.controller;
 
-import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,25 +11,27 @@ import ma.axxam.paiement.dto.StripeResponse;
 import ma.axxam.paiement.service.StripeService;
 
 @RestController
-@RequestMapping("/product/v1")
+@RequestMapping("/api/payments")
 
 
-public class ProductCheckoutConroller {
+public class ReservationCheckoutConroller {
 	
 	private StripeService stripeService ;
 	
-	public ProductCheckoutConroller(StripeService stripeService) {
+	public ReservationCheckoutConroller(StripeService stripeService) {
 		this.stripeService = stripeService ;
 	}
 	
 	
 	
-	@PostMapping("/checkout")
+	@PostMapping("/create-session")
 	public ResponseEntity<StripeResponse> checkoutProducts(@RequestBody PaymentRequest payementRequest) {
-		StripeResponse  stripeResponse =  stripeService.checkPayments(payementRequest);
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(stripeResponse);
+		StripeResponse stripeResponse = stripeService.createStripeSession(payementRequest);
+        if ("success".equals(stripeResponse.getStatus())) {
+            return ResponseEntity.ok(stripeResponse);
+        } else {
+            return ResponseEntity.badRequest().body(stripeResponse);
+        }
 	}
 
 }

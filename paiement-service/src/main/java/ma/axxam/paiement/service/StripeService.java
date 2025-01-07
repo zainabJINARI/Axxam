@@ -1,50 +1,66 @@
 package ma.axxam.paiement.service;
 
-import org.springframework.stereotype.Service;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-
 import ma.axxam.paiement.dto.PaymentRequest;
 import ma.axxam.paiement.dto.StripeResponse;
+import org.springframework.stereotype.Service;
 
 @Service
 public class StripeService {
 
-    public StripeResponse checkPayments(PaymentRequest paymentRequest) {
-        Stripe.apiKey = "sk_test_51QcAZERugscrmFFyek2cyIETmNZ6eEa1A0pMmxvHmBgwfGquDVGuzoctT81DDYTrNNYAv6VNKe87CkGXVV8QfXOt00Cf4JqYaj";
-        
-        // Remplir la partie de création du produit Stripe avec les données de PaymentRequest
-        SessionCreateParams.LineItem.PriceData priceData = SessionCreateParams.LineItem.PriceData.builder()
-                .setCurrency("USD")  // Vous pouvez ajuster la devise si nécessaire
-                .setUnitAmount((long) (paymentRequest.getAmount() * 100)) // Stripe prend en charge les montants en cents
-                .build();
+    private String secretKey = "sk_test_51QcAZERugscrmFFyek2cyIETmNZ6eEa1A0pMmxvHmBgwfGquDVGuzoctT81DDYTrNNYAv6VNKe87CkGXVV8QfXOt00Cf4JqYaj";
 
-        SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
-                .setQuantity(1L) // Vous pouvez définir la quantité si nécessaire
-                .setPriceData(priceData)
-                .build();
+    private String successUrl = "http://localhost:8080/success";
 
-        SessionCreateParams params = SessionCreateParams.builder()
-                .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:8080/success") // Vous pouvez ajuster cette URL selon votre besoin
-                .setCancelUrl("http://localhost:8080/cancel")  // Vous pouvez ajuster cette URL selon votre besoin
-                .addLineItem(lineItem)
-                .build();
+    private String cancelUrl = "http://localhost:8080/cancel";
 
-        Session session = null;
+    public StripeResponse createStripeSession(PaymentRequest paymentRequest) {
+        Stripe.apiKey = secretKey;
+
         try {
-            session = Session.create(params);
-        } catch (StripeException e) {
-            System.out.println(e.getMessage());
-        }
+            // Configure les paramètres de la session de paiement
+            SessionCreateParams params = SessionCreateParams.builder()
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl(successUrl)
+                .setCancelUrl(cancelUrl)
+                .addLineItem(
+                    SessionCreateParams.LineItem.builder()
+                        .setPriceData(
+                            SessionCreateParams.LineItem.PriceData.builder()
+                                .setCurrency("usd") // Remplacez par votre devise
+                                .setUnitAmount((long) (paymentRequest.getAmount() * 100)) // Convertir en cents
+                                .setProductData(
+                                    SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                        .setName(paymentRequest.getAnnounceName())
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .setQuantity(1L)
+                        .build()
+                )
+                .build();
 
-        return StripeResponse.builder()
-                .status("SUCCESS")
-                .message("Payment session created!!!")
+            // Crée la session de paiement
+            Session session = Session.create(params);
+
+            // Retourne la réponse Stripe
+            return StripeResponse.builder()
+                .status("success")
+                .message("Session créée avec succès.")
                 .sessionId(session.getId())
                 .sessionUrl(session.getUrl())
                 .build();
+
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return StripeResponse.builder()
+                .status("error")
+                .message("Échec de la création de la session Stripe: " + e.getMessage())
+                .build();
+        }
     }
 }
