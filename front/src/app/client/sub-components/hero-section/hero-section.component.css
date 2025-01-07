@@ -1,0 +1,55 @@
+.hero-section {
+    color: white;
+    padding:  0;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+   
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    
+  }
+  
+  .container {
+    position: relative;
+    background: url('../../../../../public/back_collage.png') no-repeat center center/cover;
+    border-radius: 40px;
+    overflow: hidden; /* Ensures the overlay stays inside the container */
+    padding: 2em;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 95%;
+  }
+  
+  .container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65); /* Black with 50% opacity */
+    border-radius: 40px; /* Matches the container's border radius */
+    z-index: 1;
+  }
+
+  .container *:not(.overlay){
+    z-index: 2;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    text-align: start;
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    text-align: start;
+    margin-bottom: 30px;
+  }
+  
+
+  
