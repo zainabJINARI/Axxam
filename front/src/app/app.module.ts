@@ -8,6 +8,12 @@ import { ClientModule } from './client/client.module';
   declarations: [
     AppComponent , 
     ],
+    AppComponent,
+   
+  
+   
+    
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule ,

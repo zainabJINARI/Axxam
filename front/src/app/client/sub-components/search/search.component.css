@@ -1,0 +1,39 @@
+.card {
+ 
+    background-color: transparent;
+    color: #fff;
+    width: 100%;
+    border: none;
+    padding: 0;
+  
+   
+  }
+  .container{
+    margin: 1em 0 0 0 ;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+
+  }
+  form{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1em;
+  }
+  
+  .form-group {
+   
+    flex: 1;
+  }
+  
+  .btn-primary {
+    background-color: #70592D;
+    border: none;
+    padding: 0.5em 1em ;
+  }
+  
+  .btn-primary:hover {
+    background-color: #9c804c;
+  }
+  
