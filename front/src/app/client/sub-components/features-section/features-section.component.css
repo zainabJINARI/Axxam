@@ -1,0 +1,160 @@
+.features-section {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.right-container {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 10px;
+}
+
+.right-container h2 {
+  font-size: 2.4rem;
+  color: #70592d;
+  text-align: start;
+  margin-bottom: 10px;
+}
+
+.right-container p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #70592d;
+  margin: 0 0 1em;
+  text-align: start;
+  margin-bottom: 15px;
+  width: 90%;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.features-list > li {
+  color: #9f834c;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.6;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.voyageur-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  margin-top: auto;
+}
+
+.showMore-btn {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.left-container {
+  flex: 1;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.image1 {
+  width: 80%;
+  position: relative;
+  z-index: 1;
+}
+
+.image2 {
+  width: 60%;
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  z-index: 2;
+}
+
+@media (max-width: 820px) {
+  .features-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .right-container {
+    padding: 0;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+  .right-container h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  .right-container p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .features-list > li {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+  }
+
+  .voyageur-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: auto;
+  }
+
+  .showMore-btn {
+    padding: 8px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .copyright {
+    font-size: 14px;
+  }
+  .f-logo {
+    width: 80px;
+  }
+}

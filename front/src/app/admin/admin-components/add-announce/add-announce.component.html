@@ -1,0 +1,76 @@
+<div class="container">
+  <h3><i class="fas fa-plus"></i>Create New Announcement</h3>
+
+  <!-- Étape 1 : Informations de base -->
+  <div *ngIf="currentStep === 1">
+    <form novalidate [formGroup]="announceForm" (ngSubmit)="saveAnnonce()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" formControlName="title" placeholder="Joe Shmoe" name="title" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" formControlName="address" placeholder="City and Streets" name="address"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="price">Price per Night</label>
+          <input type="number" id="price" formControlName="price" placeholder="200" name="price" required />
+        </div>
+        <div class="form-group">
+          <label for="photos">Photos</label>
+          <input type="file" id="photos" (change)="onFileChange($event, 0)" name="photos" multiple />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" placeholder="Put the description here"
+          name="description" rows="5" required></textarea>
+      </div>
+
+      <div class="form-buttons">
+        <button [routerLink]="['/admin/announcements']" type="button" class="btn btn-cancel">Cancel</button>
+        <button type="button" class="btn btn-next" (click)="nextStep()">Next</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Étape 2 : Ajouter des services -->
+  <div *ngIf="currentStep === 2">
+    <h5>Choose Category</h5>
+    <div class="categories">
+      <!-- Répéter pour chaque catégorie -->
+      <div class="categorie" *ngFor="let categorie of categories">
+        <i class="fas fa-bed"></i>
+        <h4>{{categorie}}</h4>
+      </div>
+    </div>
+    <h5>Add Service</h5>
+    <form [formGroup]="announceForm" (ngSubmit)="saveAnnonce()">
+      <div class="services" formArrayName="services">
+        <div class="service-row" *ngFor="let service of services.controls; let i = index">
+          <div class="input-container">
+            <input type="text" [id]="i" class="input-field" [formControlName]="i">
+          </div>
+
+          <div class="input-container">
+            <input type="file" [id]="'file-' + i" class="input-field" (change)="onFileChange($event, i)">
+          </div>
+
+          <button (click)="deleteService(i)" type="button" class="delete-btn">Supprimer</button>
+        </div>
+
+        <div class="add-service-btn-container">
+          <button type="button" class="add-btn" (click)="addServices()">Ajouter un service</button>
+        </div>
+      </div> <!-- Fermeture du div formArrayName="services" -->
+
+      <div class="form-buttons">
+        <button type="button" class="btn btn-cancel" (click)="prevStep()">Previous</button>
+        <button type="submit" class="btn btn-next">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

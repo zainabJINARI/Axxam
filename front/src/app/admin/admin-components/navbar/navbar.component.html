@@ -1,0 +1,23 @@
+<nav class="nav-dashboard">
+    <form action="#">
+        <div class="form-input">
+            <input type="search" placeholder="Search...">
+            <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+        </div>
+    </form>
+    <div class="notification" (click)="toggleNotifications()">
+        <i class='bx bxs-bell'></i>
+        <span class="num">8</span>
+    </div>
+
+    <!-- Liste des notifications -->
+    <div *ngIf="notificationsVisible" class="notifications-list">
+        <ul>
+            <li *ngFor="let notification of notifications">{{ notification }}</li>
+        </ul>
+    </div>
+
+    <a href="#" class="profile">
+        <img src="images/img-profile.jpg">
+    </a>
+</nav>
