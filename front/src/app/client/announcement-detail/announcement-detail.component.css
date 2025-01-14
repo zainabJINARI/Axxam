@@ -1,0 +1,54 @@
+.container{
+    max-width: 90%;
+    color: #000000b9;
+    padding: 2em 0;
+}
+.btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3em;
+}
+.btn i{
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+h2{
+    font-weight: bold;
+}
+.relative{
+   position: relative;
+}
+
+.relative .position{
+    position: absolute;
+    bottom: 3%;
+    right: 1%;
+    background-color: #0000009b;
+    color: #fff;
+}
+
+.wrapper > *{
+    flex: 1;
+    
+}
+
+.scroll{
+    margin: 2em 0;
+    overflow-x: scroll;
+    justify-content: space-evenly;
+    gap: 1.4em;
+    
+}
+
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

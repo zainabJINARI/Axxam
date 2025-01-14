@@ -31,9 +31,24 @@
     background-color: #70592D;
     border: none;
     padding: 0.5em 1em ;
+    min-width: 200px
+   
   }
   
   .btn-primary:hover {
     background-color: #9c804c;
   }
   
+
+  @media screen and (max-width:450px) {
+    form .form-group{
+      margin: 0.5em;
+      min-width: 200px
+    }
+    
+
+    .form *{
+      font-size: 0.9rem;
+
+    }
+  }

@@ -1,0 +1,55 @@
+
+.card{
+    min-width: 350px;
+    padding: 0.5em;
+    
+    
+}
+
+.card .user-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:1em;
+    color: #70592D;
+}
+.card .user-info > div *{
+    margin: 0;
+}
+.card .user-info > div  >*:last-child{
+    font-weight: 300;
+    font-size: 0.7rem;
+}
+.card .user-info > div  >*:first-child{
+    font-weight: 600;
+}
+.card .user-info img{
+    max-width: 50px;
+    border-radius: 100%;
+   
+}
+
+.card .rating >*:first-child{
+    margin-top: 0.4em;
+    color: #70592D;
+
+}
+.card .rating >*:last-child{
+    font-weight: 300;
+    text-align: justify;
+    font-size: 0.9rem;
+}
+
+.card .rating >*:first-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+.card .rating >*:first-child .date{
+   
+   margin-left: auto;
+   font-weight: 300;
+   font-size: 0.8rem;
+}

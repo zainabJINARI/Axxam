@@ -260,19 +260,18 @@ body {
   align-items: center;
 }
 
-
 .notifications-list {
   position: fixed;
   top: 0;
-  right: -300px; 
+  right: -300px;
   /* right: 0; */
   width: 300px;
   height: 100%;
   background-color: #fff;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.3);
   padding: 20px;
-  transition: right 0.3s ease; 
-  z-index: 1000; 
+  transition: right 0.3s ease;
+  z-index: 1000;
 }
 
 .notifications-list ul {
@@ -288,7 +287,7 @@ body {
 }
 
 .notifications-list.show {
-  right: 0; 
+  right: 0;
 }
 
 #content nav .profile img {
@@ -588,4 +587,19 @@ body {
   #content main .table-data .todo .todo-list {
     min-width: 420px;
   }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
