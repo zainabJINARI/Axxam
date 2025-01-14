@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './sub-components/header/header.component';
 import { HeroSectionComponent } from './sub-components/hero-section/hero-section.component';
 import { SearchComponent } from './sub-components/search/search.component';
 import { FeaturesSectionComponent } from './sub-components/features-section/features-section.component';
@@ -26,7 +24,6 @@ import { SearchPageComponent } from './search-page/search-page.component';
   declarations: [
     HomeComponent,
     FeaturesSectionComponent,
-    HeaderComponent,
     HeroSectionComponent,
     SearchComponent,
     FooterComponent,
@@ -46,7 +43,6 @@ import { SearchPageComponent } from './search-page/search-page.component';
   imports: [CommonModule, MatGridListModule, MatIconModule, NgFor, NgIf],
   exports: [
     FeaturesSectionComponent,
-    HeaderComponent,
     HeroSectionComponent,
     PropertyListingComponent, // Exporte les composants nécessaires pour l'utilisation dans d'autres modules
   ],
