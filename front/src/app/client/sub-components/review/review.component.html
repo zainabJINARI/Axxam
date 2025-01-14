@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="user-info">
+
+        <img  src="{{review.user.img.src}}" alt="{{review.user.img.alt}}"/>
+
+        <div>
+            <p>{{review.user.name}}</p>
+            <p>User from {{review.user.accountCreationDate}}</p>
+        </div>
+    </div>
+    <div class="rating">
+        <p>
+
+            <span *ngFor="let star of [].constructor(review.overallRating)">
+                <i class="bi bi-star-fill"></i>
+            </span>
+            
+              <!-- Empty stars -->
+              <span *ngFor="let star of [].constructor(5 - review.overallRating)">
+                <i class="bi bi-star"></i>
+              </span>
+              <span class="date">{{review.reviewDate}}</span>
+        </p>
+        
+        <p>{{review.comment}}</p>
+
+    </div>
+
+</div>

@@ -1,0 +1,91 @@
+.container{
+    min-width: 350px;
+    
+    margin: 2em 0;
+    
+}
+
+.container .card{
+    padding: 0.5em;
+    color: #70592D;
+
+    
+}
+input::placeholder,input{
+    color: #70592D;
+}
+.card .card-header{
+    background-color: #fff;
+}
+.card-header p{
+    
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+.card-header p span{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+
+
+.card-body form{
+    width: 100%;
+    gap: 2em;
+
+}
+form >*:first-child {
+    gap: 2em;
+}
+form >*:first-child >*{
+    flex: 1;
+
+    
+}
+
+.btn-s{
+    background-color: #000000db;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+
+.total{
+    padding: 1em 0;
+
+}
+.total >p{
+    font-weight: 200;
+    text-align: center;
+    font-size: 0.7rem;
+}
+.total .order p{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+.total .order p  span{
+    font-weight: bold;
+    font-size: 0.9rem;
+
+}
+
+.total .order p.price-total{
+    padding-top: 0.9rem;
+    border-top: 1px solid #000000db;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width:450px) {
+    .container{
+        padding: 0;
+    }
+    .container .card{
+        padding: 0;
+    }
+}

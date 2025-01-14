@@ -1,0 +1,70 @@
+.mat-icon.star-full {
+    color: #9F834C;
+
+  }
+  
+  .mat-icon:not(.star-full) {
+    color: #B8B8B8;
+
+  }
+  
+  .mat-icon {
+    font-size: 2.2rem;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+  }
+  .wrapper-stars{
+    
+    gap: 0.8em;
+    justify-content: center;
+    margin-bottom: 2em;
+  }
+  
+  .btn-custom {
+    background-color: #9F834C; /* Saddle Brown */
+    border-color: #9F834C;
+    color: white;
+  }
+  
+  .btn-custom:hover {
+    background-color: #70592D; /* Sienna */
+    border-color: #70592D;
+  }
+  
+  h3{
+    color: #70592D;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  textarea{
+    resize: none;
+    border: 1px solid #70592D;
+  }
+  textarea::placeholder{
+    font-weight: 200;
+    font-size: 0.9rem;
+  }
+
+
+  .close-review{
+    font-size: 2rem;
+    color: #70592D;
+  }
+  .container{
+    position: fixed;
+    top: 10%;
+    left: 0;
+    right: 0;
+    max-width: 40%;
+  }
+
+  
+  @media screen and (max-width:450px) {
+    .container{
+        max-width: 95%;
+    }
+    h3{
+        font-size: 1.2rem;
+    }
+  }

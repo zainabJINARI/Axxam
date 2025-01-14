@@ -1,0 +1,48 @@
+.house {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    max-width: max-content;
+    color: #9C9B9B;
+}
+
+
+.underline::after {
+    content: "";
+    display: block;
+    border-radius: 30px;
+    width: 80%; 
+    height: 3px;
+    background-color: black; 
+    position: absolute;
+    bottom: -5px; 
+    left: 50%;
+    transform: translateX(-50%); 
+}
+
+
+.house.underline{
+    color: #000;
+}
+
+
+
+.house i{
+    font-size: 1.7rem;
+    font-weight: 500;
+
+}
+
+.house p{
+    font-size: 0.8rem;
+}
+.house *{
+    margin: 0;
+}
+
+
+.house.underline p{
+    font-weight: bold;
+}

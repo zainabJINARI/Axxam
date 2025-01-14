@@ -1,0 +1,34 @@
+<main class="container ">
+    <div class="d-flex flex-row justify-content-between align-items-center py-5">
+        <h2>3BR Pend House suite</h2>
+        <button class="btn fw-bold"> <i class="bi bi-heart-fill"></i> Save </button>
+    </div>
+    <div class="relative">
+        <app-grid-imgs></app-grid-imgs>
+        <button class="btn position">See More Images</button>
+
+    </div>
+    <div class="d-flex flex-row  flex-wrap  wrapper">
+        <app-genenral-info-ann (updateValue)="flipIsShown()"></app-genenral-info-ann>
+        <app-reservation-form></app-reservation-form>
+    </div>
+    <div class="page-reviews">
+        <h4>Reviews</h4>
+        <div class="d-flex flex-row scroll ">
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+        </div>
+
+    </div>
+    <div *ngIf="isShown">
+        <app-add-review  (updateValue)="flipIsShown()"></app-add-review>
+
+    </div>
+    
+   
+
+    
+</main>

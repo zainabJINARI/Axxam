@@ -1,0 +1,50 @@
+.card{
+   
+    background-color: #fff;
+    border: none;
+}
+
+.card-header{
+    background-color: #fff;
+    border: none;
+
+}
+.card-body{
+    overflow-x: scroll;
+    gap: 3.8%;
+
+}
+
+
+.card-body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.card-body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.btn{
+    background-color: rgba(0, 0, 0, 0.78);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5em 1em;
+
+}
+
+h3{
+    font-size: 1.8rem;
+    color: #000000c6;
+}
+
+@media screen and (max-width:450px) {
+    h3{
+        font-size: 1rem;
+    }
+    .btn{
+        font-size: .8rem;
+    }
+}

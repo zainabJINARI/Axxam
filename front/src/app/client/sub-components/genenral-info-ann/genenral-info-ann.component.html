@@ -1,0 +1,46 @@
+<section class="container">
+    <h3><i class="bi bi-geo-alt-fill"></i> {{residenceInfo.location}}</h3>
+    <div class="display-div">
+
+        <div class="host-info">
+            <img  src="{{ residenceInfo.hostInfo.img.src}}" alt="{{residenceInfo.hostInfo.img.alt}}"/>
+            <div>
+                <p class="host-name fw-bold">{{residenceInfo.hostInfo.name}}</p>
+                <p class="host-seniority">Member from {{residenceInfo.hostInfo.creationDate}}</p>
+            </div>
+            <button class="btn btn-review" (click)="changeIsShown()">Add Review </button>
+        </div>
+      
+        <div class="ovarall-interactions">
+            <div>
+                <p class="fw-bold">{{residenceInfo.generalRating}}</p>
+                <p><i class="bi bi-star"></i> <i class="bi bi-star"></i> <i class="bi bi-star"></i></p>
+            </div>
+            <div>
+                <p class="fw-bold">{{residenceInfo.nbrOfComments}}</p>
+                <p>Comments</p>
+    
+            </div>
+            
+        </div>
+
+    </div>
+    
+    <div class="about">
+        <h4>About Residance</h4>
+        <p>{{residenceInfo.description}}</p>
+
+    </div>
+     
+    <div class="accomodations">
+        <h4>Accomodations & Services </h4>
+        <ul >
+            <li *ngFor="let item of residenceInfo.services "><i class="bi bi-stars"></i> {{item}}</li>
+        </ul>
+
+    </div>
+  
+   
+
+
+</section>

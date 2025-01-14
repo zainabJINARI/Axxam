@@ -1,0 +1,87 @@
+.card img{
+    width: 100%;
+    /* max-width: 400px; */
+    border-radius: 10px;
+    max-height: 270px;
+    margin-bottom: 0.5em;
+    object-fit: cover; 
+
+
+}
+
+.card{
+   min-width: 350px;
+   max-width: 400px;
+   max-height: 400px;
+   padding:0.5em ;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+   border: 1px solid #928888;
+
+}
+h4{
+    color: #000;
+    font-size: 1.3rem;
+}
+
+.price, .availability,.info{
+    color: #2E2D2D;
+    font-size: 0.8rem;
+}
+
+
+.info{
+    color: #9F834C;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.info .rating{
+    font-weight: bold;
+}
+
+
+.position{
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 270px;
+    border-radius: 10px;
+    height: 100%;
+    background-color: rgba(112, 89, 45, 0.3); /* Brown with 50% transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Ensure the overlay is above the image */
+  }
+.position .heart{
+    position: absolute;
+    z-index: 2;
+    left: 3%;
+    top: 2%;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media screen and (max-width:450px) {
+    .card{
+     
+        min-width: 170px;
+        max-height: 300px;
+
+    }
+    
+    .card img, .overlay{
+        max-height: 150px;
+    }
+    h4{
+        font-size: 1rem;
+    }
+}
