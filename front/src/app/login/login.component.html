@@ -7,14 +7,14 @@
             <div class="text-center mb-4">
               <img src="logo_axxam.png" alt="Logo" class="img-fluid" style="width: 200px;">
             </div>
-            <form>
+            <form [formGroup]="loginFormGroup"  (ngSubmit)="handleLogin()">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" formControlName="username" id="email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" formControlName="password"   id="password" placeholder="Password">
               </div>
               <button type="submit" class="btn btn-block btn-custom">Sign In</button>
               <div class="text-end mt-3">

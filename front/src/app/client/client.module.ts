@@ -19,6 +19,8 @@ import { ReservationFormComponent } from './sub-components/reservation-form/rese
 import { ReviewComponent } from './sub-components/review/review.component';
 import { AddReviewComponent } from './sub-components/add-review/add-review.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { ClientComponent } from './client.component';
+import { ClientRoutingModule } from './client-routing.module';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,16 @@ import { SearchPageComponent } from './search-page/search-page.component';
     ReviewComponent,
     AddReviewComponent,
     SearchPageComponent,
+    ClientComponent,
   ],
-  imports: [CommonModule, MatGridListModule, MatIconModule, NgFor, NgIf],
+  imports: [
+    CommonModule, 
+    MatGridListModule, 
+    MatIconModule,
+    ClientRoutingModule, 
+    NgFor, 
+    NgIf
+  ],
   exports: [
     FeaturesSectionComponent,
     HeroSectionComponent,
