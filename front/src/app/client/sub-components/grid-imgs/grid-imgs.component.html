@@ -1,20 +1,20 @@
 <mat-grid-list cols="{{nbrcols}}" rowHeight="200px" gutterSize="16px">
     <mat-grid-tile colspan="{{nbrcols/2}}" rowspan="{{nbrcols/2}}">
-        <img src="{{items[0].src}}" />
+        <img [src]="'data:image/png;base64,' + images[0]" />
       </mat-grid-tile>
     
       <!-- Second item: 1 column, 1 row -->
       <mat-grid-tile  colspan="1" rowspan="1">
-        <img src="{{items[0].src}}" />
+        <img [src]="'data:image/png;base64,' + images[1]" />
       </mat-grid-tile>
     
       <!-- Third item: 1 column, 1 row -->
       <mat-grid-tile  colspan="1" rowspan="1"> 
-        <img src="{{items[0].src}}" />
+        <img [src]="'data:image/png;base64,' + images[2]" />
       </mat-grid-tile>
     
       <!-- Fourth item: 2 columns, 1 row -->
       <mat-grid-tile colspan="{{nbrcols/2}}">
-        <img src="{{items[0].src}}" />
+        <img [src]="'data:image/png;base64,' + images[3]" />
       </mat-grid-tile>
   </mat-grid-list>

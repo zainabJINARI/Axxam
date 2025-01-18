@@ -6,6 +6,7 @@ import { AdminComponent } from './admin.component';
 import { AnnoucementComponent } from './admin-components/annoucement/annoucement.component';
 import { AddAnnounceComponent } from './admin-components/add-announce/add-announce.component';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
+import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'reservations', component: ReservationComponent },
       { path: 'announcements', component: AnnoucementComponent },
       { path: 'new-announce', component: AddAnnounceComponent },
+      { path: 'edit-announce/:id', component: EditAnnouncementComponent },
       { path: 'edit-profile', component: EditProfileComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

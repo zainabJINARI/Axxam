@@ -1,14 +1,13 @@
 <div class="order">
-    <div class="head">
+    <div class="head d-flex flex-row align-items-center justify-content-between">
         <h2>Announcement</h2>
         <div class="sub-head">
-            <form action="#" class="search">
+            <!-- <form action="#" class="search">
                 <input type="text" placeholder="Search here">
                 <i class='bx bx-search'></i>
-            </form>
+            </form> -->
             <div class="create-btn">
                 <a [routerLink]="['/admin/new-announce']">Create New Announcement</a>
-
             </div>
         </div>
     </div>
@@ -16,62 +15,50 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>About Estate</th>
-                <th>Location</th>
+                <th>Title</th>
                 <th>Description</th>
+                <th>Address</th>
+                <th>Price/Night</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>01-10-2021</td>
-                <td>This is just a random about section</td>
-                <td>This is just a random description for this estae idk what you are expecting but yeah this is just
-                    what is it </td>
+            <tr *ngFor="let announcement of announcements; let i = index">
+                <td>{{ announcement.id }}</td>
+                <td>{{ announcement.title }}</td>
+                <td>{{ announcement.description }}</td>
+                <td>{{ announcement.address }}</td>
+                <td>{{ announcement.priceForNight | currency }}</td>
+                <td>{{ announcement.category?.name }}</td>
                 <td>
                     <ul class="btn-actions">
-                        <li><i class='bx bxs-trash'></i></li>
-                        <li><i class='bx bxs-edit'></i></li>
+                        <li  (click)="deleteAnnouncement(announcement.id || '')"><i class='bx bxs-trash'></i></li>
+                        <li (click)="editAnnouncement(announcement.id || '' )"><i class='bx bxs-edit'></i></li>
                     </ul>
                 </td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>01-10-2021</td>
-                <td>This is just a random about section</td>
-                <td>This is just a random description for this estae idk what you are expecting but yeah this is just
-                    what is it </td>
-                <td>
-                    <ul class="btn-actions">
-                        <li><i class='bx bxs-trash'></i></li>
-                        <li><i class='bx bxs-edit'></i></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>01-10-2021</td>
-                <td>This is just a random about section</td>
-                <td>This is just a random description for this estae idk what you are expecting but yeah this is just
-                    what is it </td>
-                <td>
-                    <ul class="btn-actions">
-                        <li><i class='bx bxs-trash'></i></li>
-                        <li><i class='bx bxs-edit'></i></li>
-                    </ul>
-                </td>
-            </tr>
-
-
         </tbody>
     </table>
+   
 
-    <div class="pagination">
-        <button class="btn-pagination"><i class='bx bx-chevron-left'></i></button>
-        <span class="page-number">1</span>
-        <button class="btn-pagination"><i class='bx bx-chevron-right'></i></button>
+    <div class="d-flex justify-content-center mt-4 pagination">
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 0">
+                <a class="page-link" (click)="goToPage(1)">First</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === 0">
+                <a class="page-link" (click)="prevPage()">Previous</a>
+            </li>
+            <li *ngFor="let page of [].constructor(totalPages) ; let i = index" class="page-item" [class.active]="i === currentPage">
+                <a class="page-link" (click)="goToPage(i)">{{ i }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === (totalPages-1)">
+                <a class="page-link" (click)="nextPage()">Next</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === (totalPages-1)">
+                <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+            </li>
+        </ul>
     </div>
-
-
 </div>

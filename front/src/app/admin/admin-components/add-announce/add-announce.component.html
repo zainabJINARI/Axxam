@@ -15,12 +15,12 @@
             required />
         </div>
         <div class="form-group">
-          <label for="price">Price per Night</label>
-          <input type="number" id="price" formControlName="price" placeholder="200" name="price" required />
+          <label for="priceForNight">Price per Night</label>
+          <input type="number" id="priceForNight" formControlName="priceForNight" placeholder="200" name="priceForNight" required />
         </div>
         <div class="form-group">
-          <label for="photos">Photos</label>
-          <input type="file" id="photos" (change)="onFileChange($event, 0)" name="photos" multiple />
+          <label for="images">Photos</label>
+          <input type="file" id="images" (change)="onFileChangeImg($event)" name="images" multiple />
         </div>
       </div>
 
@@ -32,7 +32,7 @@
 
       <div class="form-buttons">
         <button [routerLink]="['/admin/announcements']" type="button" class="btn btn-cancel">Cancel</button>
-        <button type="button" class="btn btn-next" (click)="nextStep()">Next</button>
+        <button type="button" class="btn btn-next" (click)="nextStep()" >Next</button>
       </div>
     </form>
   </div>
@@ -42,30 +42,37 @@
     <h5>Choose Category</h5>
     <div class="categories">
       <!-- Répéter pour chaque catégorie -->
-      <div class="categorie" *ngFor="let categorie of categories">
-        <i class="fas fa-bed"></i>
-        <h4>{{categorie}}</h4>
+      <div
+      class="categorie"
+      *ngFor="let categorie of categories"
+      (click)="setChoosenCategory(categorie.idC)"
+       [ngClass]="categorie.idC === choosenCategoryId ?  'active-class' : '' "
+    >      
+      <i class="fas fa-bed"></i>
+        <h4 >{{categorie.name}}</h4>
       </div>
     </div>
     <h5>Add Service</h5>
     <form [formGroup]="announceForm" (ngSubmit)="saveAnnonce()">
       <div class="services" formArrayName="services">
-        <div class="service-row" *ngFor="let service of services.controls; let i = index">
+        <div class="service-row" *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
           <div class="input-container">
-            <input type="text" [id]="i" class="input-field" [formControlName]="i">
+            <input type="text" class="input-field" formControlName="name" placeholder="Service Name">
           </div>
-
+      
           <div class="input-container">
-            <input type="file" [id]="'file-' + i" class="input-field" (change)="onFileChange($event, i)">
+            <input type="file" class="input-field" (change)="onFileChange($event, i)">
           </div>
-
+      
           <button (click)="deleteService(i)" type="button" class="delete-btn">Supprimer</button>
         </div>
-
+      
         <div class="add-service-btn-container">
           <button type="button" class="add-btn" (click)="addServices()">Ajouter un service</button>
         </div>
-      </div> <!-- Fermeture du div formArrayName="services" -->
+      </div>
+      
+      <!-- Fermeture du div formArrayName="services" -->
 
       <div class="form-buttons">
         <button type="button" class="btn btn-cancel" (click)="prevStep()">Previous</button>

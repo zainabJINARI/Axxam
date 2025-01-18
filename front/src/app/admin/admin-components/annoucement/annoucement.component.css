@@ -181,3 +181,21 @@ table td .action-btn:hover {
   color: #f5f5f5;
   border-radius: 5px;
 }
+
+
+ul.pagination{
+  margin-bottom: 2em;
+   background-color: transparent;
+   border: none;
+   --bs-pagination-color:#70592D;
+   --bs-pagination-active-bg:#70592D;
+   --bs-pagination-active-border-color:#70592D;
+ }
+ ul.pagination .page-item{
+  cursor: pointer;
+ }
+
+
+ .btn-actions > *{
+  cursor: pointer;
+ }

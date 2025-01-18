@@ -15,6 +15,12 @@ h5 {
   margin-bottom: 20px;
 }
 
+.active-class {
+  background-color: #e0d5c2;
+  color: white !important;
+}
+
+
 .categorie {
   aspect-ratio: 1;
   display: flex;

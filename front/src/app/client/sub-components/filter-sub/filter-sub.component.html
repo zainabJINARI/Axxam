@@ -3,18 +3,10 @@
     
         <div class="category-container">
             
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-            <app-category> </app-category>
-
+            <div *ngFor="let c of categories" class="house" >
+                <i class="bi bi-house"></i>
+                <p>{{c.name}}</p>
+              </div>
         </div>
         <button class="btn"> <i class="bi bi-filter-circle"></i> <span class="hidden">Filters</span> </button>
 

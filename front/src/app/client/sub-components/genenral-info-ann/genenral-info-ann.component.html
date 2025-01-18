@@ -1,11 +1,11 @@
 <section class="container">
-    <h3><i class="bi bi-geo-alt-fill"></i> {{residenceInfo.location}}</h3>
+    <h3><i class="bi bi-geo-alt-fill"></i> {{announcement.address}}</h3>
     <div class="display-div">
 
         <div class="host-info">
             <img  src="{{ residenceInfo.hostInfo.img.src}}" alt="{{residenceInfo.hostInfo.img.alt}}"/>
             <div>
-                <p class="host-name fw-bold">{{residenceInfo.hostInfo.name}}</p>
+                <p class="host-name fw-bold">{{announcement.host.fullname}}</p>
                 <p class="host-seniority">Member from {{residenceInfo.hostInfo.creationDate}}</p>
             </div>
             <button class="btn btn-review" (click)="changeIsShown()">Add Review </button>
@@ -28,14 +28,14 @@
     
     <div class="about">
         <h4>About Residance</h4>
-        <p>{{residenceInfo.description}}</p>
+        <p>{{announcement.description}}</p>
 
     </div>
      
     <div class="accomodations">
         <h4>Accomodations & Services </h4>
         <ul >
-            <li *ngFor="let item of residenceInfo.services "><i class="bi bi-stars"></i> {{item}}</li>
+            <li *ngFor="let item of announcement.services "><i class="bi bi-stars"></i> {{item.title}}</li>
         </ul>
 
     </div>

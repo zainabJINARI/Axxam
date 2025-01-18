@@ -6,6 +6,7 @@
     justify-content: space-between;
     flex:1;
     overflow-x: scroll; 
+   
 
 
 }
@@ -29,7 +30,7 @@
     
     
     max-width: 100%;
-    padding: 1em 2em;
+    padding: 0em 2em;
     margin: 2em 0;
     border-top: 1px solid #D9D9D9;
     display: flex;
@@ -44,7 +45,7 @@
     border: 1px solid rgb(54, 53, 53);
     color: rgb(54, 53, 53);
     font-weight: bold;
-    padding: 1em 2em ;
+    padding: 0.2em 2em ;
 
 }
 
@@ -67,4 +68,57 @@
     .container{
         gap: 1em;
     }
+}
+
+
+
+.house {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    max-width: max-content;
+    color: #5f5f5f;
+    cursor: pointer;
+    
+}
+
+
+.house:hover ::after{
+    content: "";
+    display: block;
+    border-radius: 30px;
+    width: 80%; 
+    height: 3px;
+    background-color: black; 
+    position: absolute;
+    bottom: -2px; 
+    left: 50%;
+    transform: translateX(-50%); 
+}
+
+
+.house:hover{
+    color: #000;
+}
+
+
+
+.house i{
+    font-size: 1.1rem;
+    font-weight: 500;
+
+}
+
+.house p{
+    font-size: 0.8rem;
+}
+.house *{
+    margin: 0;
+}
+
+
+.house.underline p{
+    font-weight: bold;
 }

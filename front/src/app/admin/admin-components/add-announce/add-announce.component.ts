@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../models/Category';
+import { AnnouncementService } from '../../../services/announcement.service';
+import { Service } from '../../../models/Service';
 
 @Component({
   selector: 'app-add-announce',
@@ -7,32 +11,35 @@ import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-announce.component.css'],
 })
 export class AddAnnounceComponent implements OnInit {
+
   public announceForm!: FormGroup;
   currentStep: number = 2;
-  categories = [
-    'Chambre',
-    'Salon',
-    'Cuisine',
-    'Jardin',
-    'Chambre',
-    'Salon',
-    'Cuisine',
-    'Jardin',
-  ];
+  categories!: Category[];
+  choosenCategoryId: number = -1;
+  // services:Service[]=[]
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private annServ: AnnouncementService
+  ) {}
 
   ngOnInit(): void {
     this.announceForm = this.fb.group({
       title: ['', Validators.required],
       address: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(1)]],
-      photos: [''],
+      priceForNight: ['', [Validators.required, Validators.min(1)]],
+      images: [[]], // Initialize as an empty array
       description: ['', Validators.required],
       services: this.fb.array([this.createService()]),
     });
-  }
 
+    this.categoryService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+    });
+  }
   createService(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
@@ -56,27 +63,86 @@ export class AddAnnounceComponent implements OnInit {
     }
   }
 
-  onFileChange(event: any, index: number): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.services.at(index).patchValue({
-        file: file,
-      });
-    }
+  public setChoosenCategory(id: number): void {
+    this.choosenCategoryId = id;
+    console.log(id);
+  }
+
+  onFileChangeImg(event: any): void {
+    const files = Array.from(event.target.files); // Convert FileList to an array
+    this.announceForm.patchValue({
+      images: files, // Prioritize the 'images' field
+    });
   }
 
   saveAnnonce(): void {
     if (this.announceForm.valid) {
-      console.log('Formulaire soumis:', this.announceForm.value);
+      const formData = new FormData();
+
+      // Append text fields
+      formData.append('title', this.announceForm.get('title')?.value);
+      formData.append('address', this.announceForm.get('address')?.value);
+      formData.append('priceForNight', this.announceForm.get('priceForNight')?.value);
+      formData.append('categoryId', this.choosenCategoryId.toString());
+      formData.append('description', this.announceForm.get('description')?.value);
+
+      // Append images (files)
+      const images: File[] = this.announceForm.get('images')?.value;
+      if (images && images.length > 0) {
+        images.forEach((image) => {
+          formData.append('images', image); // Field name matches API
+        });
+      }
+     
+      // Send formData via service
+      this.annServ.createAnnouncement(formData).subscribe({
+        next: (data) => {
+          let id= JSON.parse( JSON.stringify(data))['id']
+        
+
+          // Parse it
+          console.log(id)  
+          this.createServices(id)
+          
+        },
+        error: (error) => console.error('Error creating announcement:', error),
+      });
     } else {
-      console.log('Formulaire invalide');
+      console.log('Invalid form submission');
     }
   }
 
+  onFileChange(event: any, index: number): void {
+    const file = event.target.files[0];
+    const serviceGroup = this.services.at(index) as FormGroup;
+    serviceGroup.patchValue({ file });
+  }
+
+  createServices(announcementId: string): void {
+    const services = this.announceForm.get('services')?.value;
+  
+    // Iterate through the services and send each one individually
+    services.forEach((service: any) => {
+      const serviceFormData = new FormData();
+      serviceFormData.append('title', service.name); // Assuming 'name' is the field for service name
+      serviceFormData.append('description', service.description || '');
+      serviceFormData.append('announcementId', announcementId); // Attach the announcement ID
+  
+      if (service.file) {
+        serviceFormData.append('image', service.file); // Assuming file is the image
+      }
+  
+      // Send the service creation request
+      this.annServ.createService(serviceFormData).subscribe({
+        next: (response) => {
+          console.log('Service created successfully:', response);
+        },
+        error: (error) => console.error('Error creating service:', error),
+      });
+    });
+  }
+
   nextStep(): void {
-    // if (this.currentStep === 1 && this.announceForm.valid) {
-    //   this.currentStep = 2;
-    // }
     if (this.currentStep === 1) {
       this.currentStep = 2;
     } else {

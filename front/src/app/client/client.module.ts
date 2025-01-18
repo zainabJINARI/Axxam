@@ -21,6 +21,8 @@ import { AddReviewComponent } from './sub-components/add-review/add-review.compo
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
+import { HeaderComponent } from './sub-components/header/header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -42,12 +44,14 @@ import { ClientRoutingModule } from './client-routing.module';
     AddReviewComponent,
     SearchPageComponent,
     ClientComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule, 
     MatGridListModule, 
     MatIconModule,
     ClientRoutingModule, 
+    RouterModule,
     NgFor, 
     NgIf
   ],

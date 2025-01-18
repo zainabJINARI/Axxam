@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-grid-imgs',
@@ -13,6 +13,8 @@ export class GridImgsComponent {
     { src: 'house.png' },
    
   ];
+
+  @Input() images!: any;
 
   public nbrcols = 4;
 

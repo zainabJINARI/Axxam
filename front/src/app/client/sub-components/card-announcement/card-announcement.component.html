@@ -1,16 +1,16 @@
-<div class="card">
+<div class="card" (click)="goToDetails()">
     <div class="position">
         <div class="overlay">
             <span class="heart">
               <i class="bi bi-heart"></i>
             </span>
           </div>
-        <img src="house.png" />
+          <img [src]="'data:image/png;base64,' + announcement.imageUrl[0]" alt="Announcement Image" />
     
 
     </div>
    
-    <p class="info">Groviland , Calefornia <span class="rating"><i class="bi bi-star-fill"></i> 4.54</span></p>
-    <h4>3BR Pend House suite</h4>
-    <p> <span class="price">400$/night ,</span> <span class="availability fw-bold">23-28 Dec</span></p>
+    <p class="info">{{announcement.address}} <span class="rating"><i class="bi bi-star-fill"></i> {{announcement.averageRating}}</span></p>
+    <h4>{{announcement.title}}</h4>
+    <p> <span class="price">{{announcement.priceForNight}}$/night ,</span> <span class="availability fw-bold"></span></p>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-genenral-info-ann',
@@ -21,6 +21,8 @@ export class GenenralInfoAnnComponent {
       }
     }
   };
+
+  @Input() announcement!: any;
   
   @Output() updateValue = new EventEmitter<void>();
   changeIsShown() {
