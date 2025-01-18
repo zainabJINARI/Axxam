@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: 'announcements', component: AnnoucementComponent },
       { path: 'new-announce', component: AddAnnounceComponent },
       { path: 'edit-announce/:id', component: EditAnnouncementComponent },
-      { path: 'edit-profile', component: EditProfileComponent },
+      { path: 'edit-profile/:username', component: EditProfileComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
