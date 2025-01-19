@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-
+import { NotificationsComponent } from './admin-components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     AddAnnounceComponent,
     EditProfileComponent,
     EditAnnouncementComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,
@@ -33,8 +34,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
-    CanvasJSAngularChartsModule , 
-
+    CanvasJSAngularChartsModule,
   ],
   exports: [SidebarComponent],
 })

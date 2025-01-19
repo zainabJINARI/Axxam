@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
@@ -62,5 +62,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeroSectionComponent,
     PropertyListingComponent, // Exporte les composants nécessaires pour l'utilisation dans d'autres modules
   ],
+  providers: [DatePipe],
 })
 export class ClientModule {}

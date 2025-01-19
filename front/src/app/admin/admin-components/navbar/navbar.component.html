@@ -5,17 +5,17 @@
             <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
         </div>
     </form>
-    <div class="notification" (click)="toggleNotifications()">
+    <div class="notification" (click)="changeIsShown()">
         <i class='bx bxs-bell'></i>
-        <span class="num">8</span>
+        <span class="num"></span>
     </div>
 
     <!-- Liste des notifications -->
-    <div *ngIf="notificationsVisible" class="notifications-list">
+    <!-- <div *ngIf="notificationsVisible" class="notifications-list">
         <ul>
             <li *ngFor="let notification of notifications">{{ notification }}</li>
         </ul>
-    </div>
+    </div> -->
 
     <a href="#" class="profile">
         <img src="images/img-profile.jpg">

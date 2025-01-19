@@ -4,6 +4,7 @@ import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/Category';
 import { AnnouncementService } from '../../../services/announcement.service';
 import { Service } from '../../../models/Service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-announce',
@@ -21,7 +22,8 @@ export class AddAnnounceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private annServ: AnnouncementService
+    private annServ: AnnouncementService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -103,6 +105,7 @@ export class AddAnnounceComponent implements OnInit {
           // Parse it
           console.log(id)  
           this.createServices(id)
+          this.router.navigateByUrl('/admin/announcements')
           
         },
         error: (error) => console.error('Error creating announcement:', error),

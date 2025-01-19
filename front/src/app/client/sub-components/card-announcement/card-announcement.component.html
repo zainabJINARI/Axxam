@@ -5,12 +5,19 @@
               <i class="bi bi-heart"></i>
             </span>
           </div>
-          <img [src]="'data:image/png;base64,' + announcement.imageUrl[0]" alt="Announcement Image" />
+          <img [src]="'data:image/png;base64,' + (announcement.imageUrl?.length ? announcement.imageUrl[0] : (announcement.photos?.length ? announcement.photos[0] : ''))" 
+          alt="Announcement Image" />
+     
     
 
     </div>
    
-    <p class="info">{{announcement.address}} <span class="rating"><i class="bi bi-star-fill"></i> {{announcement.averageRating}}</span></p>
+    <p class="info">
+      {{announcement.address}}
+      <span class="rating" *ngIf="announcement.averageRating">
+        <i class="bi bi-star-fill"></i> {{ announcement.averageRating | number:'1.1-1' }}
+      </span>
+    </p>
     <h4>{{announcement.title}}</h4>
     <p> <span class="price">{{announcement.priceForNight}}$/night ,</span> <span class="availability fw-bold"></span></p>
 </div>

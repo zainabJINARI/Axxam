@@ -9,22 +9,19 @@
 
     </div>
     <div class="d-flex flex-row  flex-wrap  wrapper">
-        <app-genenral-info-ann (updateValue)="flipIsShown()" [announcement]="announcement"></app-genenral-info-ann>
+        <app-genenral-info-ann (updateValue)="flipIsShown()" [announcement]="announcement" [isReacted]="isReacted"></app-genenral-info-ann>
         <app-reservation-form  [announcement]="announcement"></app-reservation-form>
     </div>
-    <div class="page-reviews">
+    <div *ngIf="announcement.reactions.length!=0" class="page-reviews">
         <h4>Reviews</h4>
-        <div class="d-flex flex-row scroll ">
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
+        <div class="d-flex flex-row scroll  justify-content-start align-items-stretch">
+            <app-review *ngFor="let review of announcement.reactions" [reaction]="review"></app-review>
+            
         </div>
 
     </div>
     <div *ngIf="isShown">
-        <app-add-review  (updateValue)="flipIsShown()"></app-add-review>
+        <app-add-review  (updateValue)="flipIsShown()" [announcementId]="announcement.id"></app-add-review>
 
     </div>
     
