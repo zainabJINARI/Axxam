@@ -22,6 +22,33 @@ export class AnnouncementService {
     });
   }
 
+  getFilteredAnnouncements(filters: any): Observable<any> {
+    const token = localStorage.getItem('authData');
+    const accessToken = token ? JSON.parse(token)['access-token'] : null;
+  
+    // If there's no access token, you could handle it (e.g., redirect to login)
+    if (!accessToken) {
+      console.error('Authorization token not found');
+    }
+  
+    // Set the Authorization header with the token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
+  
+    // Set the parameters for the GET request
+    const params = {
+      location: filters.placeLocation,
+      title: filters.placeName,
+      price: filters.price,
+      categoryId: filters.placeCategory,
+      page: filters.page || 0, // Default to page 0 if not provided
+      size: filters.size || 5   // Default to 5 items per page if not provided
+    };
+  
+    // Send the GET request with the headers and parameters
+    return this.http.get<any>(this.baseUrl, { headers, params });
+  }
+  
+
   public setAnnouncements(data:any){
     this.announcement=data
 
@@ -37,6 +64,8 @@ export class AnnouncementService {
 
 
   }
+
+
 
   getAnnouncementsByHost(page: number = 0, size: number = 5): Observable<any> {
     let params = new HttpParams()

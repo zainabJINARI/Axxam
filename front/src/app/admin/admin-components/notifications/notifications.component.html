@@ -1,0 +1,42 @@
+<div class="notifications">
+    <h2>Notifications <button class="btn btn-brown" (click)="changeIsShown()">Close</button></h2>
+    <ul>
+        <li *ngFor="let notification of notifications"  class="f-flex flex-column text-start" (click)="goToReview(notification.announcementId,notification.idReaction)">
+            <p>You have a new review By <span class="fw-bold"> {{notification.customer.fullname}}</span></p>
+            <span>Date: {{ notification.postedDate}}</span>
+        </li>
+        <li *ngIf="!notifications" class="nounread">
+            No Unread Notifications 
+        </li>
+
+    </ul>
+    <div class="f-flex flex-row justify-content-end"> 
+
+       
+
+
+
+        <div class="d-flex justify-content-center mt-4">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 0">
+                    <a class="page-link" (click)="goToPage(1)">First</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === 0">
+                    <a class="page-link" (click)="prevPage()">Previous</a>
+                </li>
+                <li *ngFor="let page of [].constructor(totalNbrOfPages) ; let i = index" class="page-item" [class.active]="i === currentPage">
+                    <a class="page-link" (click)="goToPage(i)">{{ i }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === (totalNbrOfPages-1)">
+                    <a class="page-link" (click)="nextPage()">Next</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === (totalNbrOfPages-1)">
+                    <a class="page-link" (click)="goToPage(totalNbrOfPages)">Last</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+   
+</div>

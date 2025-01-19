@@ -6,18 +6,19 @@
             <img  src="{{ residenceInfo.hostInfo.img.src}}" alt="{{residenceInfo.hostInfo.img.alt}}"/>
             <div>
                 <p class="host-name fw-bold">{{announcement.host.fullname}}</p>
-                <p class="host-seniority">Member from {{residenceInfo.hostInfo.creationDate}}</p>
+                <p class="host-seniority">Member from {{ announcement.host.createdAt | date: 'yyyy-MM-dd' }}</p>
             </div>
-            <button class="btn btn-review" (click)="changeIsShown()">Add Review </button>
+
+            <button *ngIf="!isReacted" class="btn btn-review" (click)="changeIsShown()">Add Review </button>
         </div>
       
         <div class="ovarall-interactions">
             <div>
-                <p class="fw-bold">{{residenceInfo.generalRating}}</p>
+                <p class="fw-bold">{{overallRating}}</p>
                 <p><i class="bi bi-star"></i> <i class="bi bi-star"></i> <i class="bi bi-star"></i></p>
             </div>
             <div>
-                <p class="fw-bold">{{residenceInfo.nbrOfComments}}</p>
+                <p class="fw-bold">{{announcement.reactions.length}}</p>
                 <p>Comments</p>
     
             </div>

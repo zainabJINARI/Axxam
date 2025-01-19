@@ -2,27 +2,29 @@
     <div class="user-info">
 
         <img  src="{{review.user.img.src}}" alt="{{review.user.img.alt}}"/>
+        
 
         <div>
-            <p>{{review.user.name}}</p>
-            <p>User from {{review.user.accountCreationDate}}</p>
+            <p>{{reaction.customer?.fullname}}</p>
+            <p>User from {{ reaction.customer.createdAt | date: 'yyyy-MM-dd' }}</p>
         </div>
+        <button *ngIf="isInteractionAuthrised" class="btn btn-danger delete" (click)="deleteReaction(reaction.idReaction)"><i class="bi bi-trash"></i></button>
     </div>
     <div class="rating">
         <p>
 
-            <span *ngFor="let star of [].constructor(review.overallRating)">
+            <span *ngFor="let star of [].constructor(reaction.ratingValue)">
                 <i class="bi bi-star-fill"></i>
             </span>
             
               <!-- Empty stars -->
-              <span *ngFor="let star of [].constructor(5 - review.overallRating)">
+              <span *ngFor="let star of [].constructor(5 - reaction.ratingValue)">
                 <i class="bi bi-star"></i>
               </span>
-              <span class="date">{{review.reviewDate}}</span>
+              <span class="date">{{reaction.postedDate | date: 'yyyy-MM-dd'}}</span>
         </p>
         
-        <p>{{review.comment}}</p>
+        <p>{{reaction.comment}}</p>
 
     </div>
 

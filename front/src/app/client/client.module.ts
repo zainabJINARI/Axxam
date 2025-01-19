@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +23,7 @@ import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
 import { HeaderComponent } from './sub-components/header/header.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,12 +54,14 @@ import { RouterModule } from '@angular/router';
     ClientRoutingModule, 
     RouterModule,
     NgFor, 
-    NgIf
+    NgIf,
+    ReactiveFormsModule
   ],
   exports: [
     FeaturesSectionComponent,
     HeroSectionComponent,
     PropertyListingComponent, // Exporte les composants nécessaires pour l'utilisation dans d'autres modules
   ],
+  providers: [DatePipe] 
 })
 export class ClientModule {}

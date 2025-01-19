@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AnnouncementService } from '../../services/announcement.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-search-page',
@@ -7,89 +10,137 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPageComponent implements OnInit {
   results:any = []; // Array to store search results
-  totalPages = 3; // Static value for total pages
-  currentPage = 1; // Current page
+  totalPages!:number ; // Static value for total pages
+  currentPage = 0; // Current page
   resultsPerPage = 8; // Number of results per page
   pagination! : number[]; // Array to store pagination links
+  total!:number
+  searchForm!: FormGroup;
+  categories: any[] = [];
+  isSearchActivated:boolean=false
 
-  constructor() {}
+
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private annService:AnnouncementService) {}
 
   ngOnInit(): void {
-    this.fetchResults(this.currentPage);
-    this.generatePagination();
+    this.fetchResults();
+    this.searchForm = this.fb.group({
+      placeName: [''],
+      placeLocation: [''],
+      placeCategory: [''],
+      price: ['']
+    });
+
+    // Fetch categories for the dropdown (if needed)
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
+    
+  }
+
+  clearSearch(){
+    this.isSearchActivated=false
+    this.searchForm.reset('')
+    this.fetchResults()
+  }
+
+  performSearch(){
+    if (this.searchForm.valid) {
+      const formData = this.searchForm.value;
+
+      formData.page = this.currentPage|| 0; 
+      formData.size = this.resultsPerPage|| 5;  
+      this.annService.getFilteredAnnouncements(formData).subscribe({
+        next:(data:any)=>{
+          console.log(data)
+          this.results= JSON.parse(JSON.stringify(data)).items
+        let result =JSON.parse(JSON.stringify(data)).totalItems/this.resultsPerPage 
+        
+        if(Math.floor(result)!=result){
+          result+=1
+          result=Math.floor(result)
+
+        }
+        this.totalPages=result
+        this.total=JSON.parse(JSON.stringify(data)).totalItems
+
+        },
+        error:()=>{
+
+        }
+      });
+    }
+
+  }
+
+  onSubmit(): void {
+    this.isSearchActivated = true
+    this.performSearch()
+   
   }
 
   // Function to fetch results based on the current page
-  fetchResults(page: number): void {
-    const fakeData = this.getFakeData(page);
-    this.results = fakeData;
+  fetchResults(): void {
+    // const fakeData = this.getFakeData(page);
+    // this.results = fakeData;
+
+    this.annService.getAnnouncements(this.currentPage,this.resultsPerPage).subscribe({
+      next:(data)=>{
+        this.results= JSON.parse(JSON.stringify(data)).items
+        let result =JSON.parse(JSON.stringify(data)).totalItems/this.resultsPerPage 
+        
+        if(Math.floor(result)!=result){
+          result+=1
+          result=Math.floor(result)
+
+        }
+        this.totalPages=result
+        this.total=JSON.parse(JSON.stringify(data)).totalItems
+
+
+      },
+      error:()=>{
+        console.log('error while trying to get announcement s')
+      }
+    })
+
   }
 
-  // Fake data generation based on page number
-  getFakeData(page: number) {
-    const data = [
-      [
-        { title: 'Place 1', description: 'Description of place 1' },
-        { title: 'Place 2', description: 'Description of place 2' },
-        { title: 'Place 3', description: 'Description of place 3' },
-        { title: 'Place 4', description: 'Description of place 4' },
-        { title: 'Place 5', description: 'Description of place 5' },
-        { title: 'Place 6', description: 'Description of place 6' },
-        { title: 'Place 7', description: 'Description of place 7' },
-        { title: 'Place 8', description: 'Description of place 8' }
-      ],
-      [
-        { title: 'Place 9', description: 'Description of place 9' },
-        { title: 'Place 10', description: 'Description of place 10' },
-        { title: 'Place 11', description: 'Description of place 11' },
-        { title: 'Place 12', description: 'Description of place 12' },
-        { title: 'Place 13', description: 'Description of place 13' },
-        { title: 'Place 14', description: 'Description of place 14' },
-        { title: 'Place 15', description: 'Description of place 15' },
-        { title: 'Place 16', description: 'Description of place 16' }
-      ],
-      [
-        { title: 'Place 17', description: 'Description of place 17' },
-        { title: 'Place 18', description: 'Description of place 18' },
-        { title: 'Place 19', description: 'Description of place 19' },
-        { title: 'Place 20', description: 'Description of place 20' },
-        { title: 'Place 21', description: 'Description of place 21' },
-        { title: 'Place 22', description: 'Description of place 22' },
-        { title: 'Place 23', description: 'Description of place 23' },
-        { title: 'Place 24', description: 'Description of place 24' }
-      ]
-    ];
+  
 
-    return data[page - 1]; // Return the results for the current page
-  }
-
-  // Generate pagination links based on total pages
-  generatePagination(): void {
-    this.pagination = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      this.pagination.push(i);
-    }
-  }
+ 
 
   // Change the current page and fetch the results for that page
-  goToPage(page: number): void {
-    this.currentPage = page;
-    this.fetchResults(this.currentPage);
-  }
+  prevPage() {
+    this.currentPage-=1
+    if(this.isSearchActivated ){
+      this.performSearch()
+    }else{
+      this.fetchResults()
 
-  // Simulate navigating to the next page
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.fetchResults(this.currentPage);
     }
-  }
+   
+    
+    }
+    goToPage(page: number) {
+      this.currentPage=page
+      if(this.isSearchActivated ){
+        this.performSearch()
+      }else{
+        this.fetchResults()
+  
+      }
+    }
+    nextPage() {
+    this.currentPage+=1
+    if(this.isSearchActivated ){
+      this.performSearch()
+    }else{
+      this.fetchResults()
 
-  // Simulate navigating to the previous page
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.fetchResults(this.currentPage);
     }
-  }
+    }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  notificationsVisible = true;
   notifications = [
     'Nouvelle notification 1',
     'Nouvelle notification 2',
@@ -18,8 +17,10 @@ export class NavbarComponent {
     'Nouvelle notification 8',
   ];
 
-  toggleNotifications() {
-    console.log('Notification is Clicked !!!!');
-    this.notificationsVisible = !this.notificationsVisible;
+  @Output() updateValue = new EventEmitter<void>();
+
+  changeIsShown() {
+    this.updateValue.emit(); // No argument is passed
   }
+ 
 }

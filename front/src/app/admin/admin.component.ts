@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AdminComponent {
 
+  notificationsVisible = false;
+  toggleNotifications() {
+    console.log('Notification is Clicked !!!!');
+    this.notificationsVisible = !this.notificationsVisible;
+  }
+
 }

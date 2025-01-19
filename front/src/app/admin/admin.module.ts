@@ -12,6 +12,7 @@ import { AddAnnounceComponent } from './admin-components/add-announce/add-announ
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
+import { NotificationsComponent } from './admin-components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditAnnouncementComponent } from './admin-components/edit-announcement/
     AddAnnounceComponent,
     EditProfileComponent,
     EditAnnouncementComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,
