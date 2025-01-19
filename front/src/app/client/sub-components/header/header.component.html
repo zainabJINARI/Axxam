@@ -7,13 +7,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="#"  routerLink="/client/explore">Explore <span class="sr-only">(current)</span></a>
+        </li> -->
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
+        </li> -->
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown
           </a>
@@ -26,11 +26,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
+        </li> -->
       </ul>
     <!-- Add the Login button here -->
 
-    <a [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host">Put my accommodation on Axxam</a>
+    <a *ngIf="!isLogged" [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host">Put my accommodation on Axxam</a>
     <!-- Si l'utilisateur est connecté, afficher le bouton LogOut, sinon afficher le bouton Login -->
     <!-- <button *ngIf="isLogged; else loginButton" class="btn my-2 my-lg-0 ms-auto btn-login"
       routerLink="/logOut">LogOut</button>
@@ -40,6 +40,7 @@
     <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
     <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
     <div *ngIf="isLogged" class="profile-container">
+      <span class="fw-bold mr-2">{{username}}</span>
       <img class="profile-image" src="images/default_profile.jpg" alt="Profile" (click)="toggleLogoutOptions()" />
 
       <!-- Menu déroulant avec options de déconnexion -->

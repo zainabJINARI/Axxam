@@ -11,7 +11,7 @@ export class NotificationsComponent  implements OnInit{
   notifications:any
   currentPage:number=0
   totalNbrOfPages!:number
-  notifPerPage:number=10
+  notifPerPage:number=5
   constructor(private reactionService: ReactionService,private router: Router){}
 
 

@@ -9,6 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isLogged: boolean = false; // Statut de connexion de l'utilisateur
+  username!:string
   showLogoutOptions: boolean = false; // Affichage des options de déconnexion
 
   constructor(private authService: AuthService) {}
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
     const token = this.authService.getToken();
     if (token) {
       this.isLogged = true;
+      this.username=this.authService.getUsername() || ''
     }
   }
 
