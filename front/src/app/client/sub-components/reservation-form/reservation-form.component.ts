@@ -70,6 +70,7 @@ export class ReservationFormComponent implements OnInit {
   }
 
   reserver(): void {
+
     if (this.reservationForm.valid) {
       const requestData: ReservationRequest = {
         propertyId: this.announcement?.id,
@@ -98,6 +99,7 @@ export class ReservationFormComponent implements OnInit {
 
         // Vérifier correctement le statut de la session Stripe
         if (response.status === 'success') {
+          console.log("La payement  Status est success !!!")
           // Il faut utiliser "response" et non "StripeResponse"
           // Créer la réservation après un paiement réussi
           this.resService
