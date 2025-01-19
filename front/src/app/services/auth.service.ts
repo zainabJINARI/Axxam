@@ -58,20 +58,20 @@ export class AuthService {
     return authData ? JSON.parse(authData)['roles'] : null;
   }
 
-  // Méthode de mise à jour de l'utilisateur
-  updateUser(
-    username: string,
-    email: string,
-    password: string,
-  ): Observable<any> {
-    const body = { username, email, password };
+  // // Méthode de mise à jour de l'utilisateur
+  // updateUser(
+  //   username: string,
+  //   email: string,
+  //   password: string,
+  // ): Observable<any> {
+  //   const body = { username, email, password };
 
-    return this.http.post<any>(`${this.baseUrl}/update/${username}`, body).pipe(
-      tap((response) => {
-        localStorage.setItem('authData', JSON.stringify(response));
-      })
-    );
-  }
+  //   return this.http.post<any>(`${this.baseUrl}/update/${username}`, body).pipe(
+  //     tap((response) => {
+  //       localStorage.setItem('authData', JSON.stringify(response));
+  //     })
+  //   );
+  // }
 
   // Méthode de déconnexion
   logout(): void {
@@ -94,6 +94,40 @@ export class AuthService {
               'Erreur 401 : Utilisateur non authentifié. Redirection...'
             );
           }
+          return throwError(() => error);
+        })
+      );
+  }
+
+  updateUser(
+    username: string,
+    email?: string,
+    password?: string
+  ): Observable<any> {
+    const updateData: { email?: string; password?: string } = {};
+
+    if (email) {
+      updateData.email = email;
+    }
+
+    if (password) {
+      updateData.password = password;
+    }
+
+    const body = updateData;
+
+    const headers = {
+      Authorization: `Bearer ${this.getToken()}`,
+    };
+
+    return this.http
+      .post<any>(`${this.baseUrl}/update/${username}`, body, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(
+            "Erreur lors de la mise à jour de l'utilisateur",
+            error
+          );
           return throwError(() => error);
         })
       );

@@ -18,3 +18,39 @@ img {
   border-radius: 15px;
   margin-right: 20px;
 }
+
+.profile-container {
+  position: relative;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.logout-options {
+  position: absolute;
+  top: 45px; /* Ajustez selon la taille de l'image et l'espacement désiré */
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.logout-options li {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #70592d;
+}

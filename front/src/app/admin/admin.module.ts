@@ -12,6 +12,8 @@ import { AddAnnounceComponent } from './admin-components/add-announce/add-announ
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { EditAnnouncementComponent } from './admin-components/edit-announcement/
     ReactiveFormsModule,
     RouterModule,
     FormsModule,
+    CanvasJSAngularChartsModule , 
+
   ],
   exports: [SidebarComponent],
 })

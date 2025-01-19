@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-    <a class="navbar-brand" href="#"><img src="logo_axxam.png" alt="logo axxam" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- <ul class="navbar-nav mr-auto">
+  <a class="navbar-brand" href="#"><img src="logo_axxam.png" alt="logo axxam" /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
@@ -26,12 +27,35 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
-      </ul> -->
-      <!-- Add the Login button here -->
-     
-      <a [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host">Put my accommodation on Axxam</a>
+      </ul>
+    <!-- Add the Login button here -->
+
+    <a [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host">Put my accommodation on Axxam</a>
+    <!-- Si l'utilisateur est connecté, afficher le bouton LogOut, sinon afficher le bouton Login -->
+    <!-- <button *ngIf="isLogged; else loginButton" class="btn my-2 my-lg-0 ms-auto btn-login"
+      routerLink="/logOut">LogOut</button>
+    <ng-template #loginButton>
       <button class="btn my-2 my-lg-0 ms-auto btn-login" routerLink="/login">Login</button>
-      
+    </ng-template> -->
+    <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
+    <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
+    <div *ngIf="isLogged" class="profile-container">
+      <img class="profile-image" src="images/default_profile.jpg" alt="Profile" (click)="toggleLogoutOptions()" />
+
+      <!-- Menu déroulant avec options de déconnexion -->
+      <ul *ngIf="showLogoutOptions" class="logout-options">
+        <li><a href="#">Settings</a></li>
+        <li><a href="/client" (click)="onLogout()">LogOut</a></li>
+      </ul>
     </div>
-  </nav>
-  
+
+    <!-- Si l'utilisateur n'est pas connecté, afficher le bouton Login -->
+      <button *ngIf="!isLogged" class="btn my-2 my-lg-0 ms-auto btn-login" routerLink="/login">Login</button>
+      <!-- <ng-template #loginButton>
+
+    </ng-template> -->
+
+
+
+  </div>
+</nav>

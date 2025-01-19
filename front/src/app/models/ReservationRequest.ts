@@ -1,6 +1,6 @@
 export interface ReservationRequest {
   propertyId: string;
-  userId: string;
+  userId: string | null;
   checkIn: string;
   checkOut: string;
   numberOfGuests: number;

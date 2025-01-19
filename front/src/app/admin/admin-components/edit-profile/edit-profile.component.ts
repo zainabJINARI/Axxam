@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,7 +14,11 @@ export class EditProfileComponent implements OnInit {
 
   public profileForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -43,8 +48,8 @@ export class EditProfileComponent implements OnInit {
           this.profileForm.patchValue({
             username: username,
             email: email || '',
-            password: '*********',
-            comfpassword: '*********',
+            password: '',
+            comfpassword: '',
           });
         },
         (error) => {
@@ -66,5 +71,35 @@ export class EditProfileComponent implements OnInit {
       : 'Aucun fichier sélectionné';
   }
 
- 
+  // Fonction pour mettre à jour les données utilisateur
+  editProfile(): void {
+    // if (this.profileForm.invalid) {
+    //   console.warn(
+    //     'Formulaire invalide, veuillez vérifier les champs.',
+    //     this.profileForm.errors
+    //   );
+    //   console.log('Form Errors:', this.profileForm.controls);
+    //   return;
+    //   return;
+    // }
+
+    const { username, email, password, comfpassword } = this.profileForm.value;
+
+    // Vérifier que les mots de passe correspondent
+    if (password !== comfpassword) {
+      console.error('Les mots de passe ne correspondent pas.');
+      return;
+    }
+
+    // Appeler la méthode updateUser avec les nouvelles informations
+    this.authService.updateUser(username, email, password).subscribe(
+      (response) => {
+        console.log('Profil mis à jour avec succès', response);
+        this.router.navigate(['/admin/dashboard']);
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du profil', error);
+      }
+    );
+  }
 }

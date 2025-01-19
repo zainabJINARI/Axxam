@@ -18,7 +18,7 @@
 
     <!-- edit form column -->
     <div class="col-md-9">
-      <form [formGroup]="profileForm">
+      <form [formGroup]="profileForm" (ngSubmit)="editProfile()">
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" value="janeuser" formControlName="username" [disabled]="false">

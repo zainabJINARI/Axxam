@@ -23,6 +23,7 @@ import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
 import { HeaderComponent } from './sub-components/header/header.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,16 +45,17 @@ import { RouterModule } from '@angular/router';
     AddReviewComponent,
     SearchPageComponent,
     ClientComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
-    CommonModule, 
-    MatGridListModule, 
+    CommonModule,
+    MatGridListModule,
     MatIconModule,
-    ClientRoutingModule, 
+    ClientRoutingModule,
     RouterModule,
-    NgFor, 
-    NgIf
+    NgFor,
+    NgIf,
+    ReactiveFormsModule,
   ],
   exports: [
     FeaturesSectionComponent,

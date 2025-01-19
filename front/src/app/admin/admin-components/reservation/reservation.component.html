@@ -27,11 +27,14 @@
         <tbody>
             <tr *ngFor="let reservation of reservations ; let i = index">
                 <td>{{ i+1 }}</td>
+                <!-- <td>{{ reservation.id }}</td> -->
                 <td>{{ reservation.checkIn }}</td>
                 <td>{{ reservation.checkOut }}</td>
                 <td>{{ reservation.numberOfGuests }}</td>
-                <td><button class="action-btn" data-toggle="modal" data-target="#exampleModalLong"><i
-                            class="fas fa-ellipsis-v"></i></button></td>
+                <td><button class="action-btn" (click)="getReservationById(reservation.id)"><i class="fas fa-ellipsis-v"
+                            data-toggle="modal" data-target="#exampleModalLong"></i></button></td>
+
+                <!--  -->
             </tr>
         </tbody>
     </table>
@@ -54,7 +57,7 @@
 
 
     <!-- Reservation Details Model -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    <!-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -73,7 +76,46 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Header avec le nom de l'utilisateur -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        Réservation par {{ reservation?.userName }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- Body avec les détails de la réservation -->
+                <div class="modal-body">
+                    <h6>Détails de la réservation</h6>
+                    <ul>
+                        <!-- <li><strong>ID de la réservation :</strong> {{ reservation?.id }}</li> -->
+                        <li><strong>Date de check-in :</strong> {{ reservation?.checkIn | date }}</li>
+                        <li><strong>Date de check-out :</strong> {{ reservation?.checkOut | date }}</li>
+                        <li><strong>Nombre de nuits :</strong> {{ reservation?.nights }}</li>
+                        <li><strong>Prix total :</strong> {{ reservation?.totalPrice | currency }}</li>
+                        <li><strong>Statut de la réservation :</strong> {{ reservation?.status }}</li>
+                        <li><strong>Statut du paiement :</strong> PAID</li>
+                    </ul>
+                </div>
+
+                <!-- Footer avec bouton pour fermer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                </div>
+            </div>
+        </div>
     </div>
+
 
 
 

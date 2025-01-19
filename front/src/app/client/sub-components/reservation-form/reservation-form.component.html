@@ -5,45 +5,43 @@
             <p><span>{{announcement.priceForNight}} $ </span> Per Night</p>
         </div>
         <div class="card-body">
-            <form class="d-flex flex-column">
-                <div class="d-flex flex-row flex-wrap  "> 
+            <form class="d-flex flex-column" [formGroup]="reservationForm" (ngSubmit)="reserver()">
+                <div class="d-flex flex-row flex-wrap  ">
                     <div class="form-group">
                         <label>Start</label>
-                        <input type="date" class="form-control">
-    
+                        <input type="date" class="form-control" formControlName="checkIn">
                     </div>
                     <div class="form-group">
                         <label class="label">End </label>
-                        <input type="date" class="form-control">
-    
+                        <input type="date" class="form-control" formControlName="checkOut">
+
                     </div>
-    
+
                 </div>
                 <div class="form-group">
                     <label>Number of People</label>
-                    <input type="number" placeholder="1 Person" class="form-control">
-    
+                    <input type="number" placeholder="1 Person" class="form-control" formControlName="numberOfGuests">
+                </div>
+
+
+                <div class="form-group">
+                    <label>Nights</label>
+                    <input type="number" placeholder="1" class="form-control" formControlName="nights">
                 </div>
                 <button class="btn btn-s"> Book Place</button>
             </form>
             <div class="total">
-                
+
                 <p>No Amount will Be debited from card at this moment</p>
                 <div class="order">
-                    <p>72$ x 5 nights <span>233$</span></p>
-                    <p class="price-total">Total <span>234$</span></p>
-                  
-                    
-
-
+                    <p>{{ priceForNight }}$ x {{ reservationForm.get('nights')?.value || 1 }} nights <span>{{
+                        baseAmount.toFixed(2) }}$</span></p>
+                    <p class="price-total">Total <span>{{ totalAmount.toFixed(2) }}$</span></p>
                 </div>
-
-
-    
             </div>
 
         </div>
-       
-      
+
+
     </div>
 </section>

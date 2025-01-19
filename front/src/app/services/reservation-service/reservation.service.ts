@@ -6,40 +6,59 @@ import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../../models/PaginatedResponse';
 import { ReservationStatus } from '../../client/enums/ReservationStatus';
 import { AuthService } from '../auth.service';
+import { PayementStatus } from '../../client/enums/PaymentStatus';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservationService {
-  
   private apiUrl = 'http://localhost:8081/api/reservations';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Créer une réservation
+  // createReservation(
+  //   requestDTO: ReservationRequest
+  // ): Observable<ReservationResponse> {
+  //   return this.http.post<ReservationResponse>(this.apiUrl, requestDTO);
+  // }
+
   createReservation(
+    payStatus: PayementStatus,
     requestDTO: ReservationRequest
   ): Observable<ReservationResponse> {
-    return this.http.post<ReservationResponse>(this.apiUrl, requestDTO);
+    const token = this.authService.getToken(); // Utiliser le token de AuthService
+
+    let headers = new HttpHeaders();
+
+    // Si un token est disponible, ajouter l'en-tête Authorization
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    const params = new HttpParams().set('payStatus', payStatus);
+
+    return this.http.post<ReservationResponse>(this.apiUrl, requestDTO, {
+      headers,
+    });
   }
 
   getAllReservations(
-    page: number = 1,  // Remarque : La page commence à 1
+    page: number = 1,
     size: number = 5
   ): Observable<PaginatedResponse<ReservationResponse>> {
     const token = this.authService.getToken(); // Utilisez la méthode getToken() de AuthService pour obtenir le token
-  
+
     let headers = new HttpHeaders();
-  
+
     if (token) {
-      // Si un token est disponible, ajoutez-le dans l'en-tête Authorization
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
-  
+
     const params = new HttpParams()
-      .set('page', page.toString())  // Envoi de la page sans soustraction
+      .set('page', page.toString()) // Envoi de la page sans soustraction
       .set('size', size.toString());
-  
+
     return this.http.get<PaginatedResponse<ReservationResponse>>(this.apiUrl, {
       headers: headers,
       params: params, // Paramètres de pagination
@@ -54,27 +73,38 @@ export class ReservationService {
   ): Observable<PaginatedResponse<ReservationResponse>> {
     // Récupérer le token via le service d'authentification
     const token = this.authService.getToken(); // Utilisez la méthode getToken() de AuthService pour obtenir le token
-  
+
     let headers = new HttpHeaders();
-    
+
     // Si un token est disponible, ajoutez-le dans l'en-tête Authorization
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
-  
+
     // Définir les paramètres de pagination
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-  
+
     // Effectuer la requête GET avec les en-têtes et les paramètres
     return this.http.get<PaginatedResponse<ReservationResponse>>(
       `${this.apiUrl}/status/${status}`,
-      { headers, params }  // Ajout des headers et des paramètres
+      { headers, params } // Ajout des headers et des paramètres
     );
   }
-  
-  
+
+  getNumReservations(): Observable<number> {
+    const token = this.authService.getToken(); // Utiliser le token de AuthService
+
+    let headers = new HttpHeaders();
+
+    // Si un token est disponible, ajouter l'en-tête Authorization
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.get<number>(`${this.apiUrl}/count`, { headers });
+  }
 
   // getAllReservations(
   //   page: number = 1,
@@ -101,7 +131,18 @@ export class ReservationService {
 
   // Obtenir une réservation par ID
   getReservationById(id: string): Observable<ReservationResponse> {
-    return this.http.get<ReservationResponse>(`${this.apiUrl}/${id}`);
+    const token = this.authService.getToken(); // Utiliser le token de AuthService
+
+    let headers = new HttpHeaders();
+
+    // Si un token est disponible, ajouter l'en-tête Authorization
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.get<ReservationResponse>(`${this.apiUrl}/${id}`, {
+      headers,
+    });
   }
 
   // Mettre à jour une réservation
@@ -129,8 +170,6 @@ export class ReservationService {
       { params }
     );
   }
-
-  
 
   // Obtenir les réservations par ID de propriété
   getReservationsByPropertyId(

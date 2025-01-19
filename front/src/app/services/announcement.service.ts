@@ -56,7 +56,6 @@ export class AnnouncementService {
     if (location) {
       params = params.set('location', location);
     }
-
     return this.http.get<any>(this.baseUrl, { headers: this.getAuthHeaders(), params });
   }
 

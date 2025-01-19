@@ -11,6 +11,7 @@ export class AnnouncementDetailComponent implements OnInit {
    
    public isShown !: boolean 
    announcement:any
+
    constructor(private annSer:AnnouncementService, private router:ActivatedRoute){}
    
 
@@ -23,7 +24,6 @@ export class AnnouncementDetailComponent implements OnInit {
     this.annSer.getAnnouncementById(this.router.snapshot.paramMap.get('id') || '').subscribe({
       next:(data)=>{
         this.announcement=data
-
       },
       
     })
