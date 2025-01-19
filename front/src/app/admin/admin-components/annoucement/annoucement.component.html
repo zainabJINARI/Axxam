@@ -27,7 +27,7 @@
             <tr *ngFor="let announcement of announcements; let i = index">
                 <td>{{ announcement.id }}</td>
                 <td>{{ announcement.title }}</td>
-                <td>{{ announcement.description }}</td>
+                <td class="text-justify">{{ announcement.description.split(' ').slice(0, 10).join(' ') }}...</td>             
                 <td>{{ announcement.address }}</td>
                 <td>{{ announcement.priceForNight | currency }}</td>
                 <td>{{ announcement.category?.name }}</td>
