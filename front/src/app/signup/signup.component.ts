@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -31,12 +31,25 @@ export class SignupComponent implements OnInit {
       }
     });
 
-    this.profileForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      comfpassword: ['', Validators.required],
-    });
+    this.profileForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        comfpassword: ['', Validators.required],
+      },
+      {
+        validators: this.passwordsMatchValidator,
+      }
+    );
+  }
+
+  passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('comfpassword')?.value;
+    return password === confirmPassword
+      ? null
+      : { passwordsNotMatching: true };
   }
 
   saveUser(): void {

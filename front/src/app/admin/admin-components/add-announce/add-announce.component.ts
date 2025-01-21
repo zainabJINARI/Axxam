@@ -14,10 +14,9 @@ import { Router } from '@angular/router';
 export class AddAnnounceComponent implements OnInit {
 
   public announceForm!: FormGroup;
-  currentStep: number = 2;
+  currentStep: number = 1;
   categories!: Category[];
   choosenCategoryId: number = -1;
-  // services:Service[]=[]
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +30,7 @@ export class AddAnnounceComponent implements OnInit {
       title: ['', Validators.required],
       address: ['', Validators.required],
       priceForNight: ['', [Validators.required, Validators.min(1)]],
-      images: [[]], // Initialize as an empty array
+      images: [[]], 
       description: ['', Validators.required],
       services: this.fb.array([this.createService()]),
     });
@@ -71,9 +70,9 @@ export class AddAnnounceComponent implements OnInit {
   }
 
   onFileChangeImg(event: any): void {
-    const files = Array.from(event.target.files); // Convert FileList to an array
+    const files = Array.from(event.target.files); 
     this.announceForm.patchValue({
-      images: files, // Prioritize the 'images' field
+      images: files,
     });
   }
 
@@ -144,6 +143,19 @@ export class AddAnnounceComponent implements OnInit {
       });
     });
   }
+
+
+  cancelCreation(): void {
+    if (this.announceForm.dirty) { // Vérifie si le formulaire a été modifié
+      const confirmed = confirm('You have unsaved changes. Are you sure you want to cancel?');
+      if (confirmed) {
+        this.router.navigateByUrl('/admin/announcements'); // Redirige vers une autre page
+      }
+    } else {
+      this.router.navigateByUrl('/admin/announcements');
+    }
+  }
+  
 
   nextStep(): void {
     if (this.currentStep === 1) {
