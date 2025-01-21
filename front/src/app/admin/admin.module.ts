@@ -14,7 +14,6 @@ import { EditProfileComponent } from './admin-components/edit-profile/edit-profi
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { NotificationsComponent } from './admin-components/notifications/notifications.component';
-
 @NgModule({
   declarations: [
     SidebarComponent,

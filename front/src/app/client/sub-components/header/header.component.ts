@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
@@ -12,15 +12,18 @@ export class HeaderComponent implements OnInit {
   username!:string
   showLogoutOptions: boolean = false; // Affichage des options de déconnexion
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Vérifiez si l'utilisateur est connecté au démarrage
     const token = this.authService.getToken();
-    if (token) {
-      this.isLogged = true;
-      this.username=this.authService.getUsername() || ''
-    }
+    
+  if (token) {
+    this.isLogged = true;
+    this.username = this.authService.getUsername() || '';
+    this.cdr.detectChanges(); // Manually trigger change detection
+  }
+  console.log(this.isLogged);
   }
 
   toggleLogoutOptions(): void {
@@ -39,6 +42,14 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.authService.logout();
+    console.log('loading')
+    this.authService.logout(()=>{
+      this.isLogged = false;  // Reset the logged-in state
+      this.username = '';  // Clear the username or any other related data
+      console.log('log out successfull')
+      
+    });
+   
+
   }
 }

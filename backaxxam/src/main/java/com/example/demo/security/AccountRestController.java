@@ -74,7 +74,7 @@ public class AccountRestController {
 		String scope = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(" "));
 
-		JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder().issuedAt(now).expiresAt(now.plus(1, ChronoUnit.HOURS))
+		JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder().issuedAt(now).expiresAt(now.plus(8, ChronoUnit.HOURS))
 				.subject(authentication.getName()).claim("scope", scope).build();
 
 		System.out.println("JWT Claims: " + jwtClaimsSet.getClaims());

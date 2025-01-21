@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = 'http://localhost:8081/auth'; // Adjust to your API's base URL
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router:Router) {}
 
   login(username: string, password: string): Observable<any> {
     const params = new HttpParams()
@@ -38,6 +39,18 @@ export class AuthService {
     );
   }
 
+
+   isAuthenticated(): boolean {
+    const authData = localStorage.getItem('authData');
+    return authData !== null;
+  }
+
+   // ✅ Function to check if user is a Host
+   isHost(): boolean {
+    const roles = this.getRoles();
+    return roles ? roles.includes('ROLE_HOST') : false;
+  }
+
   getToken(): string | null {
     const authData = localStorage.getItem('authData');
     return authData ? JSON.parse(authData)['access-token'] : null;
@@ -58,25 +71,21 @@ export class AuthService {
     return authData ? JSON.parse(authData)['roles'] : null;
   }
 
-  // // Méthode de mise à jour de l'utilisateur
-  // updateUser(
-  //   username: string,
-  //   email: string,
-  //   password: string,
-  // ): Observable<any> {
-  //   const body = { username, email, password };
 
-  //   return this.http.post<any>(`${this.baseUrl}/update/${username}`, body).pipe(
-  //     tap((response) => {
-  //       localStorage.setItem('authData', JSON.stringify(response));
-  //     })
-  //   );
-  // }
 
   // Méthode de déconnexion
-  logout(): void {
+  logout(callback=()=>{}): void {
     localStorage.removeItem('authData');
-    this.http.post(`${this.baseUrl}/logout`, {}).subscribe();
+    this.http.post(`${this.baseUrl}/logout`, {}).subscribe({
+      next: () => {
+        console.log('Logged out successfully');
+        callback()
+        this.router.navigateByUrl('/login')
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+      },
+    });
   }
 
   // Get User By his UserName

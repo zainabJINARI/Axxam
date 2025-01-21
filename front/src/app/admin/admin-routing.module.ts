@@ -7,11 +7,13 @@ import { AnnoucementComponent } from './admin-components/annoucement/annoucement
 import { AddAnnounceComponent } from './admin-components/add-announce/add-announce.component';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
+import { HostGuard } from '../guards/host.guard';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [HostGuard], 
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'reservations', component: ReservationComponent },

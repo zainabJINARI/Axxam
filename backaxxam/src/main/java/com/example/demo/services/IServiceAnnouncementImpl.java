@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,7 @@ public class IServiceAnnouncementImpl implements IServiceAnnouncement {
 	            return new PageImpl<>(resultList, PageRequest.of(page, size), reactions.getTotalElements());
 	    } 
 	
+	  
 	@Override
 	public PaginatedResponse<AnnouncementDto> getFilteredAnnouncementsByLocation(int page, int size, String location) {
 	    Page<Announcement> announcements = annRepo.findByAddressContainingIgnoreCase(location, PageRequest.of(page, size));
@@ -147,42 +149,44 @@ public class IServiceAnnouncementImpl implements IServiceAnnouncement {
 	   return new PaginatedResponse<AnnouncementDto>(list, announcements.getTotalElements());
 	}
 	
+	
 	@Override
-	public PaginatedResponse<AnnouncementDto> getFilteredAnnouncementsByLocationAndMore(int page, int size, String location, String title, Double price, Long categoryId) {
-	  
+public PaginatedResponse<AnnouncementDto> getFilteredAnnouncementsByLocationAndMore(
+        int page, int size, String location, String title, Double price, Long categoryId) {
+    
+    // Log parameters for debugging
+    System.out.println("Filtering with:");
+    System.out.println("Title: " + title);
+    System.out.println("Location: " + location);
+    System.out.println("Price: " + price);
+    System.out.println("Category ID: " + categoryId);
 
-	    Page<Announcement> announcements;
-	   
-	    if (location != null && !location.isBlank()) {
-	        if (title != null || price != null || categoryId != null) {
-	            // Apply all filters including location
-	            announcements = annRepo.findByFilters( title,location, price, categoryId, PageRequest.of(page, size));
-	        } else {
-	            // If only location is present, filter by location only
-	            announcements = annRepo.findByAddressContainingIgnoreCase(location, PageRequest.of(page, size));
-	        }
-	    } else {
-	        // If location is not provided, check for other filters (title, price, categoryId)
-	        if (title != null || price != null || categoryId != null) {
-	            // Apply filters for title, price, or categoryId without location
-	            announcements = annRepo.findByFilters(null, title, price, categoryId, PageRequest.of(page, size));
-	        } else {
-	            // If no filters are provided, return all announcements
-	            announcements = annRepo.findAll(PageRequest.of(page, size));
-	        }
-	    }
+    Page<Announcement> announcements;
 
-        announcements = annRepo.findByFilters(location, title, price, categoryId, PageRequest.of(page, size));
+    // If all filters are null, return all announcements
+    if (location == null && title == null && price == null && categoryId == null) {
+        announcements = annRepo.findAll(PageRequest.of(page, size));
+    } else {
+        // Apply filtering using repository method
+        announcements = annRepo.findByFilters(title, location, price, categoryId, PageRequest.of(page, size));
+    }
 
+    // Convert entities to DTOs
+    List<AnnouncementDto> list = announcements.getContent().stream()
+            .map(mapperAnn::fromAnnouncement) // First, map using the existing mapper
+            .peek(a -> {
+                // Set services to an empty list
+                a.setServices(Collections.emptyList());
 
-	    List<AnnouncementDto> list = announcements.getContent().stream().map(a -> {
-	        return mapperAnn.fromAnnouncement(a);
-	    }).collect(Collectors.toList());
-	    System.out.println(announcements.getContent());
+                // Keep only one image in the photos list
+                if (a.getPhotos() != null && !a.getPhotos().isEmpty()) {
+                    a.setPhotos(Collections.singletonList(a.getPhotos().get(0)));
+                }
+            })
+            .collect(Collectors.toList());
 
-	    return new PaginatedResponse<>(list, announcements.getTotalElements());
-	}
-
+    return new PaginatedResponse<>(list, announcements.getTotalElements());
+}
 
 
 

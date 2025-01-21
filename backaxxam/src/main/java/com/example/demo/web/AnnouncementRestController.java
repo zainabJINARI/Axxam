@@ -109,10 +109,10 @@ public class AnnouncementRestController {
 		System.out.println(categoryId);
 		
 
-	    if (location != null && !location.isBlank()) {
+//	    if (location != null && !location.isBlank()) {
 	        return serviceAnn.getFilteredAnnouncementsByLocationAndMore(page, size, location, title, price, categoryId);
-	    }
-	    return serviceAnn.getAllAnnouncements(page, size);
+//	    }
+//	    return serviceAnn.getAllAnnouncements(page, size);
 	}
 
 	

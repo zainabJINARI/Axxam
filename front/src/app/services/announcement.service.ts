@@ -60,7 +60,7 @@ export class AnnouncementService {
     let params = new HttpParams()
     .set('page', page.toString())
     .set('size', size.toString());
-    return this.http.get<any>(`${this.baseUrl}/ordered-by-rating`, { headers: this.getAuthHeaders(), params });
+    return this.http.get<any>(`${this.baseUrl}/ordered-by-rating`, {  params });
 
 
   }

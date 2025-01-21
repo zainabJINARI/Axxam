@@ -4,6 +4,7 @@ import { ClientComponent } from './client.component';
 import { HomeComponent } from './home/home.component';
 import { AnnouncementDetailComponent } from './announcement-detail/announcement-detail.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes: Routes = [
@@ -11,9 +12,9 @@ const routes: Routes = [
     path: 'client',
     component: ClientComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'announcement/:id', component: AnnouncementDetailComponent },
-      { path: 'explore', component: SearchPageComponent },
+      { path: '', component: HomeComponent }, // No guard for this route
+      { path: 'announcement/:id', component: AnnouncementDetailComponent, canActivate: [AuthGuard] }, // Guard applied
+      { path: 'explore', component: SearchPageComponent, canActivate: [AuthGuard] }, // Guard applied
     ],
   },
 ];

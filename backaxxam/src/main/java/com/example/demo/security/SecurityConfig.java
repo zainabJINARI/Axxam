@@ -100,6 +100,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(ar -> ar
                         .requestMatchers("/auth/*").permitAll()
+                        .requestMatchers("/announcements/ordered-by-rating").permitAll()
                         .anyRequest().authenticated() 
                 )
                 .oauth2ResourceServer(oa -> oa.jwt(Customizer.withDefaults())) 

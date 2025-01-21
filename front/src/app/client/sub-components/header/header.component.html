@@ -8,58 +8,45 @@
 
   <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
 
-    <a [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host ms-auto">Put my accommodation on
-      Axxam</a>
+  
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" href="#"  routerLink="/client/explore">Explore <span class="sr-only">(current)</span></a>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li> -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
+        
       </ul>
       <!-- Add the Login button here -->
 
-      <a *ngIf="!isLogged" [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="be-host">Put my accommodation
-        on Axxam</a>
-      <!-- Si l'utilisateur est connecté, afficher le bouton LogOut, sinon afficher le bouton Login -->
-      <!-- <button *ngIf="isLogged; else loginButton" class="btn my-2 my-lg-0 ms-auto btn-login"
-      routerLink="/logOut">LogOut</button>
-    <ng-template #loginButton>
-      <button class="btn my-2 my-lg-0 ms-auto btn-login" routerLink="/login">Login</button>
-    </ng-template> -->
-      <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
-      <!-- Si l'utilisateur est connecté, afficher l'image de profil -->
-      >>>>>>> 39639a8756d22ecd711459e5e234629ecc221c64
-      <div *ngIf="isLogged" class="profile-container">
-        <span class="fw-bold mr-2">{{username}}</span>
-        <img class="profile-image" src="images/default_profile.jpg" alt="Profile" (click)="toggleLogoutOptions()" />
+      <button *ngIf="!isLogged" [routerLink]="['/signup']" [queryParams]="{role: '3'}" class="btn be-host">Put my accommodation
+        on Axxam  
+        <a href="#"></a>
+      
+      </button>
+ 
 
-        <!-- Menu déroulant avec options de déconnexion -->
+     
+      <button *ngIf="!isLogged" class="btn my-2 my-lg-0 ms-auto btn-login" routerLink="/login">Login</button>   
+     
+     
+      <div *ngIf="isLogged" class="profile-container">
+        <div class="d-flex flex-row align-items-center">
+          <span class="fw-bold mr-2">{{username}}</span>
+          <div class="d-flex flex-row align-items-center "  (click)="toggleLogoutOptions()">
+            <i class="bi bi-caret-down-fill"></i>
+            <img class="profile-image" src="images/default_profile.jpg" alt="Profile" />
+  
+          </div>
+
+        </div>
+       
+
         <ul *ngIf="showLogoutOptions" class="logout-options">
           <li><a href="#">Settings</a></li>
-          <li><a href="/client" (click)="onLogout()">LogOut</a></li>
+          <li><button  (click)="onLogout()">LogOut</button></li>
         </ul>
       </div>
 
-      <!-- Si l'utilisateur n'est pas connecté, afficher le bouton Login -->
-      <button *ngIf="!isLogged" class="btn my-2 my-lg-0 ms-auto btn-login" routerLink="/login">Login</button>
 
+
+    </div>
 
     </div>
 </nav>

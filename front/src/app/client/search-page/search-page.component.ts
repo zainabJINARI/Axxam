@@ -44,6 +44,7 @@ export class SearchPageComponent implements OnInit {
   clearSearch(){
     this.isSearchActivated=false
     this.searchForm.reset('')
+    this.currentPage=0
     this.fetchResults()
   }
 
@@ -51,6 +52,11 @@ export class SearchPageComponent implements OnInit {
     if (this.searchForm.valid) {
       const formData = this.searchForm.value;
 
+      if(!this.isSearchActivated){
+        this.currentPage=0
+
+
+      }
       formData.page = this.currentPage|| 0; 
       formData.size = this.resultsPerPage|| 5;  
       this.annService.getFilteredAnnouncements(formData).subscribe({
@@ -77,8 +83,9 @@ export class SearchPageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.isSearchActivated = true
+  
     this.performSearch()
+    this.isSearchActivated = true
    
   }
 
