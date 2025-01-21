@@ -1,4 +1,6 @@
+@import "./../node_modules/ngx-toastr/toastr.css";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
+
 
 * {
   margin: 0;
@@ -390,7 +392,7 @@ body {
   grid-gap: 24px;
 }
 #content main .box-info li .bx {
-  width: 60px;
+  width: 100px;
   height: 60px;
   border-radius: 10px;
   font-size: 36px;
@@ -582,7 +584,7 @@ body {
   }
 
   #content main .box-info {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.2fr;
   }
 
   #content main .table-data .head {

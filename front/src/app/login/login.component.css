@@ -1,85 +1,79 @@
 .btn-custom {
-    background-color: #70592D; /* Saddle Brown */
-    border-color: #9F834C;
-    color: white;
-    padding: 0.7em;
-    font-weight: bold;
-  }
-  .card{
-    border: none;
-  }
-  
-  .btn-custom:hover {
-    background-color: #816735; /* Sienna */
-    border-color: #816735;
-  }
-  
-  .forgot-password, .sign-up {
-    color: #9F834C;
-    text-decoration: none;
-  }
-  
-  .forgot-password{
-    text-align: end;
-    font-weight: 300;
-    font-size: 0.8rem;
-  }
-  
+  background-color: #70592d; /* Saddle Brown */
+  border-color: #9f834c;
+  color: white;
+  padding: 0.7em;
+  font-weight: bold;
+}
+.card {
+  border: none;
+}
 
-  form{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    color: #9F834C;
+.btn-custom:hover {
+  background-color: #816735; /* Sienna */
+  border-color: #816735;
+}
+
+.forgot-password,
+.sign-up {
+  color: #9f834c;
+  text-decoration: none;
+}
+
+.forgot-password {
+  text-align: end;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  color: #9f834c;
+}
+input::placeholder {
+  color: #9f834c;
+}
+
+.sign-up {
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin: 0;
+}
+.link-signup {
+  color: #70592d;
+  text-decoration: none;
+}
+.container {
+  max-width: 100%;
+  padding: 10% 0 0;
+}
+.container > div {
+  padding: 0;
+  max-width: 100%;
+  gap: 4%;
+}
+
+.container > div > img {
+  justify-self: flex-start;
+  max-width: 500px;
+  width: 100%;
+  flex: 1;
+  min-width: 300px;
+  padding: 0;
+}
+
+@media screen and (max-width: 450px) {
+  .row {
+    margin: 0 !important;
   }
-  input::placeholder{
-    color: #9F834C;
 
-  }
-  
-  .sign-up {
-    font-weight: 300;
-    font-size: 0.9rem;
-    margin: 0;
-
-  }
-  .link-signup{
-    color: #70592D;
-    text-decoration: none;
-  }
-  .container{
-    max-width: 100%;
-    padding: 10% 0 0;
-
-
-  }
-  .container >div{
-  
-    padding: 0;
-    max-width: 100%;
-    gap: 4%;
+  .container > div > img {
+    display: none;
   }
 
-  .container >div >img{
-    justify-self: flex-start;
-    max-width: 500px;
-    width: 100%;
-    flex: 1;
-    min-width: 300px;
-    padding: 0;
-
+  .container > div {
+    justify-content: center !important;
   }
-
-  @media screen and (max-width:450px) {
-    .row{
-        margin: 0 !important;
-    }
-
-    .container >div >img{
-        display: none;
-    }
-
-    .container >div{
-        justify-content: center !important;
-    }
-  }
+}

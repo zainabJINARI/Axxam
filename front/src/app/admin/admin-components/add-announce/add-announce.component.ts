@@ -5,6 +5,7 @@ import { Category } from '../../../models/Category';
 import { AnnouncementService } from '../../../services/announcement.service';
 import { Service } from '../../../models/Service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-announce',
@@ -22,7 +23,8 @@ export class AddAnnounceComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private annServ: AnnouncementService,
-    private router:Router
+    private router:Router , 
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -100,11 +102,10 @@ export class AddAnnounceComponent implements OnInit {
         next: (data) => {
           let id= JSON.parse( JSON.stringify(data))['id']
         
-
-          // Parse it
           console.log(id)  
           this.createServices(id)
-          this.router.navigateByUrl('/admin/announcements')
+          this.router.navigateByUrl('/admin/announcements') ;
+          this.toastrService.success('Announcement created successfully');
           
         },
         error: (error) => console.error('Error creating announcement:', error),

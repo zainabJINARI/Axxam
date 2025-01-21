@@ -7,7 +7,11 @@ import { AnnoucementComponent } from './admin-components/annoucement/annoucement
 import { AddAnnounceComponent } from './admin-components/add-announce/add-announce.component';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
+<<<<<<< Updated upstream
 import { HostGuard } from '../guards/host.guard';
+=======
+import { NotFoundComponent } from '../not-found/not-found.component';
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   {

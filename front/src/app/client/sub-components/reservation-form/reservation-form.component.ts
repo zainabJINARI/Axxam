@@ -17,9 +17,10 @@ export class ReservationFormComponent implements OnInit {
   @Input() announcement!: any;
   public reservationForm!: FormGroup;
   public totalAmount: number = 0;
-  public taxRate: number = 0.1; // 10% de taxe
+  public taxRate: number = 0.1;
   public priceForNight = 0;
   public baseAmount = 0;
+  public isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,8 +33,8 @@ export class ReservationFormComponent implements OnInit {
     this.reservationForm = this.fb.group({
       checkIn: ['', Validators.required],
       checkOut: ['', [Validators.required]],
-      numberOfGuests: ['', Validators.required],
-      nights: ['1', Validators.required],
+      numberOfGuests: ['', [Validators.required, Validators.min(1)]],
+      nights: ['1', [Validators.required, Validators.min(1)]],
     });
     const announcementId = this.announcement?.id;
     console.log("ID de l'annonce:", announcementId);
@@ -70,7 +71,6 @@ export class ReservationFormComponent implements OnInit {
   }
 
   reserver(): void {
-
     if (this.reservationForm.valid) {
       const requestData: ReservationRequest = {
         propertyId: this.announcement?.id,
@@ -81,13 +81,15 @@ export class ReservationFormComponent implements OnInit {
         nights: this.reservationForm.get('nights')?.value,
       };
 
-      this.createSession(requestData); // Passer requestData à createSession
+      this.createSession(requestData);
     } else {
       console.log('Le formulaire est invalide');
     }
   }
 
   createSession(requestData: ReservationRequest) {
+    this.isLoading = true;
+
     const paymentReq: PaymentRequest = {
       amount: this.totalAmount,
       announceName: this.announcement.title,
@@ -95,13 +97,13 @@ export class ReservationFormComponent implements OnInit {
 
     this.payService.createCheckoutSession(paymentReq).subscribe({
       next: (response: StripeResponse) => {
-        window.location.href = response.sessionUrl; // Redirection vers Stripe
+        this.isLoading = false;
+        window.location.href = response.sessionUrl;
 
         // Vérifier correctement le statut de la session Stripe
         if (response.status === 'success') {
-          console.log("La payement  Status est success !!!")
-          // Il faut utiliser "response" et non "StripeResponse"
-          // Créer la réservation après un paiement réussi
+          console.log('La payement  Status est success !!!');
+
           this.resService
             .createReservation(PayementStatus.PAID, requestData)
             .subscribe({
@@ -124,6 +126,7 @@ export class ReservationFormComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur lors de la création de la session:', err);
+        this.isLoading = false;
       },
     });
   }

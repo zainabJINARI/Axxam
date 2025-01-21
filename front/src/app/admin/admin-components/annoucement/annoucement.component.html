@@ -21,22 +21,22 @@
         </thead>
         <tbody>
             <tr *ngFor="let announcement of announcements; let i = index">
-                <td>{{ announcement.id }}</td>
+                <td>{{ i+1 }}</td>
                 <td>{{ announcement.title }}</td>
-                <td class="text-justify">{{ announcement.description.split(' ').slice(0, 10).join(' ') }}...</td>             
+                <td class="text-justify">{{ announcement.description.split(' ').slice(0, 10).join(' ') }}...</td>
                 <td>{{ announcement.address }}</td>
                 <td>{{ announcement.priceForNight | currency }}</td>
                 <td>{{ announcement.category?.name }}</td>
                 <td>
                     <ul class="btn-actions">
-                        <li  (click)="deleteAnnouncement(announcement.id || '')"><i class='bx bxs-trash'></i></li>
+                        <li (click)="deleteAnnouncement(announcement.id || '')"><i class='bx bxs-trash'></i></li>
                         <li (click)="editAnnouncement(announcement.id || '' )"><i class='bx bxs-edit'></i></li>
                     </ul>
                 </td>
             </tr>
         </tbody>
     </table>
-   
+
 
     <div class="d-flex justify-content-center mt-4 pagination">
         <ul class="pagination">
@@ -46,7 +46,8 @@
             <li class="page-item" [class.disabled]="currentPage === 0">
                 <a class="page-link" (click)="prevPage()">Previous</a>
             </li>
-            <li *ngFor="let page of [].constructor(totalPages) ; let i = index" class="page-item" [class.active]="i === currentPage">
+            <li *ngFor="let page of [].constructor(totalPages) ; let i = index" class="page-item"
+                [class.active]="i === currentPage">
                 <a class="page-link" (click)="goToPage(i)">{{ i }}</a>
             </li>
             <li class="page-item" [class.disabled]="currentPage === (totalPages-1)">

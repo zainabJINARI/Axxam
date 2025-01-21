@@ -4,6 +4,7 @@ import { Category } from '../../../models/Category';
 import { CategoryService } from '../../../services/category.service';
 import { AnnouncementService } from '../../../services/announcement.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-announcement',
@@ -26,7 +27,8 @@ export class EditAnnouncementComponent implements OnInit {
     private categoryService: CategoryService,
     private annServ: AnnouncementService,
     private routerRet: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -142,9 +144,9 @@ export class EditAnnouncementComponent implements OnInit {
 
     // If no changes detected, silently return
     if (!hasChanges && this.announceForm.get('images')?.value.length === 0) {
-      console.log('No changes detected in the announcement. Saving silently.');
       this.updateServices();
       this.router.navigateByUrl('/admin/announcements');
+      this.toastrService.success('Announcement updated successfully.');
       return;
     }
 
@@ -169,6 +171,7 @@ export class EditAnnouncementComponent implements OnInit {
         console.log('Announcement updated successfully.');
         this.updateServices();
         this.router.navigateByUrl('/admin/announcements');
+        this.toastrService.success('Announcement updated successfully.');
       },
       error: (error) => {
         console.error('Error updating announcement:', error);

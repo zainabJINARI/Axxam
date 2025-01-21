@@ -1,47 +1,77 @@
 <section class="container">
-    <div class="card">
-        <div class="card-header d-flex flex-row justify-content-between">
-            <h3>Book Place Now</h3>
-            <p><span>{{announcement.priceForNight}} $ </span> Per Night</p>
-        </div>
-        <div class="card-body">
-            <form class="d-flex flex-column" [formGroup]="reservationForm" (ngSubmit)="reserver()">
-                <div class="d-flex flex-row flex-wrap  ">
-                    <div class="form-group">
-                        <label>Start</label>
-                        <input type="date" class="form-control" formControlName="checkIn">
-                    </div>
-                    <div class="form-group">
-                        <label class="label">End </label>
-                        <input type="date" class="form-control" formControlName="checkOut">
-
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label>Number of People</label>
-                    <input type="number" placeholder="1 Person" class="form-control" formControlName="numberOfGuests">
-                </div>
-
-
-                <div class="form-group">
-                    <label>Nights</label>
-                    <input type="number" placeholder="1" class="form-control" formControlName="nights">
-                </div>
-                <button class="btn btn-s"> Book Place</button>
-            </form>
-            <div class="total">
-
-                <p>No Amount will Be debited from card at this moment</p>
-                <div class="order">
-                    <p>{{ priceForNight }}$ x {{ reservationForm.get('nights')?.value || 1 }} nights <span>{{
-                        baseAmount.toFixed(2) }}$</span></p>
-                    <p class="price-total">Total <span>{{ totalAmount.toFixed(2) }}$</span></p>
-                </div>
+  <div class="card">
+    <div class="card-header d-flex flex-row justify-content-between">
+      <h3>Book Place Now</h3>
+      <p><span>{{announcement.priceForNight}} $ </span> Per Night</p>
+    </div>
+    <div class="card-body">
+      <div *ngIf="isLoading" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
+      <form class="d-flex flex-column" [formGroup]="reservationForm" (ngSubmit)="reserver()" *ngIf="!isLoading">
+        <div class="d-flex flex-row flex-wrap  ">
+          <div class="form-group">
+            <label>Start</label>
+            <input type="date" class="form-control" formControlName="checkIn">
+            <div *ngIf="reservationForm.get('checkIn')?.invalid && reservationForm.get('checkIn')?.touched">
+              <small class="text-danger" *ngIf="reservationForm.get('checkIn')?.hasError('required')">
+                Start date is required.
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="label">End </label>
+            <input type="date" class="form-control" formControlName="checkOut">
+            <div *ngIf="reservationForm.get('checkOut')?.invalid && reservationForm.get('checkOut')?.touched">
+              <small class="text-danger" *ngIf="reservationForm.get('checkOut')?.hasError('required')">
+                End date is required.
+              </small>
             </div>
 
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label>Number of People</label>
+          <input type="number" placeholder="1 Person" class="form-control" formControlName="numberOfGuests">
+          <div *ngIf="reservationForm.get('numberOfGuests')?.invalid && reservationForm.get('numberOfGuests')?.touched">
+            <small class="text-danger" *ngIf="reservationForm.get('numberOfGuests')?.hasError('required')">
+              Number of guests is required.
+            </small>
+            <small class="text-danger" *ngIf="reservationForm.get('numberOfGuests')?.hasError('min')">
+              The number of guests must be at least 1.
+            </small>
+          </div>
         </div>
 
 
+        <div class="form-group">
+          <label>Nights</label>
+          <input type="number" placeholder="1" class="form-control" formControlName="nights">
+          <div *ngIf="reservationForm.get('nights')?.invalid && reservationForm.get('nights')?.touched">
+            <small class="text-danger" *ngIf="reservationForm.get('nights')?.hasError('required')">
+              Nights are required.
+            </small>
+            <small class="text-danger" *ngIf="reservationForm.get('nights')?.hasError('min')">
+              Number of nights must be at least 1.
+            </small>
+          </div>
+        </div>
+        <button class="btn btn-s"> Book Place</button>
+
+      </form>
+      <div class="total">
+
+        <p>No Amount will Be debited from card at this moment</p>
+        <div class="order">
+          <p>{{ priceForNight }}$ x {{ reservationForm.get('nights')?.value || 1 }} nights <span>{{
+              baseAmount.toFixed(2) }}$</span></p>
+          <p class="price-total">Total <span>{{ totalAmount.toFixed(2) }}$</span></p>
+        </div>
+      </div>
+
     </div>
+
+
+  </div>
 </section>

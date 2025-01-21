@@ -71,9 +71,6 @@ export class AnnouncementService {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-
-    
-
     return this.http.get<any>(`${this.baseUrl}/host`, { headers: this.getAuthHeaders(), params });
   }
 

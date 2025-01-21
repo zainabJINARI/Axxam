@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReservationStatus } from '../../../client/enums/ReservationStatus';
 import { ReservationService } from '../../../services/reservation-service/reservation.service';
 import { ReservationResponse } from '../../../models/ReservationResponse';
+import { AnnouncementService } from '../../../services/announcement.service';
+import { Announcement } from '../../../models/Announcement';
 
 export interface data {
   [key: string]: any;
@@ -18,9 +20,13 @@ export class DashboardComponent implements data, OnInit {
   totalPages: number = 0;
   page: number = 1;
   size: number = 5;
-  totalEarnings: number = 0; 
+  totalEarnings: number = 0;
+  totalRating: number = 0;
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(
+    private reservationService: ReservationService,
+    private announceService: AnnouncementService
+  ) {}
 
   ngOnInit(): void {
     this.loadReservations();
@@ -43,10 +49,12 @@ export class DashboardComponent implements data, OnInit {
           this.totalReservations = response.totalItems;
           this.totalPages = Math.ceil(this.totalReservations / this.size);
 
-
-          this.totalEarnings = this.reservations.reduce((total, reservation) => {
-            return total + (reservation.totalPrice || 0); // On ajoute le totalPrice de chaque réservation
-          }, 0);
+          this.totalEarnings = this.reservations.reduce(
+            (total, reservation) => {
+              return total + (reservation.totalPrice || 0); // On ajoute le totalPrice de chaque réservation
+            },
+            0
+          );
         },
         (error) => {
           console.error(
@@ -55,8 +63,21 @@ export class DashboardComponent implements data, OnInit {
           );
         }
       );
+  }
 
-      
+  loadAnnouncementsByHost(): void {
+    this.announceService.getAnnouncementsByHost(this.page, this.size).subscribe(
+      (response) => {
+        console.log('Annonces récupérées:', response);
+        response.items.map((announcement: Announcement) => {
+          // Calculer le nombre total d'avis
+          this.totalRating = announcement.review?.length || 0;
+        });
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des annonces:', error);
+      }
+    );
   }
 
   chartOptions: any;

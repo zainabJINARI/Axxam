@@ -4,7 +4,11 @@ import { ClientComponent } from './client.component';
 import { HomeComponent } from './home/home.component';
 import { AnnouncementDetailComponent } from './announcement-detail/announcement-detail.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+<<<<<<< Updated upstream
 import { AuthGuard } from '../guards/auth.guard';
+=======
+import { NotFoundComponent } from '../not-found/not-found.component';
+>>>>>>> Stashed changes
 
 
 const routes: Routes = [

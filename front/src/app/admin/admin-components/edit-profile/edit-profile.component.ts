@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,7 +18,8 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router , 
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -84,11 +86,12 @@ export class EditProfileComponent implements OnInit {
     // Appeler la méthode updateUser avec les nouvelles informations
     this.authService.updateUser(username, email, password).subscribe(
       (response) => {
-        console.log('Profil mis à jour avec succès', response);
         this.router.navigate(['/admin/dashboard']);
+        this.toastrService.success('Profil mis à jour avec succès');
       },
       (error) => {
         console.error('Erreur lors de la mise à jour du profil', error);
+        this.toastrService.error('Erreur lors de la mise à jour du profil');
       }
     );
   }

@@ -9,20 +9,26 @@ import { SignupComponent } from './signup/signup.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-
     LoginComponent,
     SignupComponent,
+    NotFoundComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
-    MatGridListModule, // Ajouté ici
+    MatGridListModule, 
     ClientModule,
     AdminModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot() ,
     HttpClientModule,
     AppRoutingModule,
   ],
