@@ -73,16 +73,6 @@ export class EditProfileComponent implements OnInit {
 
   // Fonction pour mettre à jour les données utilisateur
   editProfile(): void {
-    // if (this.profileForm.invalid) {
-    //   console.warn(
-    //     'Formulaire invalide, veuillez vérifier les champs.',
-    //     this.profileForm.errors
-    //   );
-    //   console.log('Form Errors:', this.profileForm.controls);
-    //   return;
-    //   return;
-    // }
-
     const { username, email, password, comfpassword } = this.profileForm.value;
 
     // Vérifier que les mots de passe correspondent
@@ -101,5 +91,19 @@ export class EditProfileComponent implements OnInit {
         console.error('Erreur lors de la mise à jour du profil', error);
       }
     );
+  }
+
+  cancelEdit(): void {
+    if (this.profileForm.dirty) {
+      const confirmed = confirm(
+        'You have unsaved changes. Are you sure you want to cancel?'
+      );
+      if (confirmed) {
+        this.profileForm.reset(this.profileForm);
+        this.router.navigateByUrl('admin/profile');
+      }
+    } else {
+      this.router.navigateByUrl('admin/dashboard');
+    }
   }
 }

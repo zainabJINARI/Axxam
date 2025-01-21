@@ -1,83 +1,81 @@
 <div class="container">
-    <h3><i class="fas fa-plus"></i>Update New Announcement</h3>
-  
-    <!-- Étape 1 : Informations de base -->
-    <div *ngIf="currentStep === 1">
-      <form novalidate [formGroup]="announceForm" (ngSubmit)="updateAnnonce()">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" formControlName="title" placeholder="Joe Shmoe" name="title" required />
-          </div>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" formControlName="address" placeholder="City and Streets" name="address"
-              required />
-          </div>
-          <div class="form-group">
-            <label for="priceForNight">Price per Night</label>
-            <input type="number" id="priceForNight" formControlName="priceForNight" placeholder="200" name="priceForNight" required />
-          </div>
-          <div class="form-group">
-            <label for="images">Photos</label>
-            <input type="file" id="images" (change)="onFileChangeImg($event)" name="images" multiple />
-          </div>
-        </div>
-  
+  <h3><i class="fas fa-plus"></i>Update New Announcement</h3>
+
+  <!-- Étape 1 : Informations de base -->
+  <div *ngIf="currentStep === 1">
+    <form novalidate [formGroup]="announceForm" (ngSubmit)="updateAnnonce()">
+      <div class="form-grid">
         <div class="form-group">
-          <label for="description">Description</label>
-          <textarea id="description" formControlName="description" placeholder="Put the description here"
-            name="description" rows="5" required></textarea>
+          <label for="title">Title</label>
+          <input type="text" id="title" formControlName="title" placeholder="Joe Shmoe" name="title" required />
         </div>
-  
-        <div class="form-buttons">
-          <button [routerLink]="['/admin/announcements']" type="button" class="btn btn-cancel">Cancel</button>
-          <button type="button" class="btn btn-next" (click)="nextStep()" >Next</button>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" formControlName="address" placeholder="City and Streets" name="address"
+            required />
         </div>
-      </form>
-    </div>
-  
-    <!-- Étape 2 : Ajouter des services -->
-    <div *ngIf="currentStep === 2">
-      <h5>Choose Category</h5>
-      <div class="categories">
-        <!-- Répéter pour chaque catégorie -->
-        <div
-        class="categorie"
-        *ngFor="let categorie of categories"
-        (click)="setChoosenCategory(categorie.idC)"
-         [ngClass]="categorie.idC === choosenCategoryId ?  'active-class' : '' "
-      >      
-        <i class="fas fa-bed"></i>
-          <h4 >{{categorie.name}}</h4>
+        <div class="form-group">
+          <label for="priceForNight">Price per Night</label>
+          <input type="number" id="priceForNight" formControlName="priceForNight" placeholder="200" name="priceForNight"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="images">Photos</label>
+          <input type="file" id="images" (change)="onFileChangeImg($event)" name="images" multiple />
         </div>
       </div>
-      <h5>Add Service</h5>
-      <form [formGroup]="announceForm" (ngSubmit)="updateAnnonce()">
-        <div class="services" formArrayName="services">
-          <div class="service-row" *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
-            <div class="input-container">
-              <input type="text" class="input-field" formControlName="name" placeholder="Service Name">
-            </div>
-        
-            <div class="input-container">
-              <input type="file" class="input-field" (change)="onFileChange($event, i)">
-            </div>
-        
-            <button (click)="deleteService(i)" type="button" class="delete-btn">Supprimer</button>
-          </div>
-        
-          <div class="add-service-btn-container">
-            <button type="button" class="add-btn" (click)="addServices()">Ajouter un service</button>
-          </div>
-        </div>
-        
-        <!-- Fermeture du div formArrayName="services" -->
-  
-        <div class="form-buttons">
-          <button type="button" class="btn btn-cancel" (click)="prevStep()">Previous</button>
-          <button type="submit" class="btn btn-next">Save</button>
-        </div>
-      </form>
-    </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" placeholder="Put the description here"
+          name="description" rows="5" required></textarea>
+      </div>
+
+      <div class="form-buttons">
+        <button [routerLink]="['/admin/announcements']" type="button" class="btn btn-cancel"
+          (click)="cancelEdit()">Cancel</button>
+        <button type="button" class="btn btn-next" (click)="nextStep()">Next</button>
+      </div>
+    </form>
   </div>
+
+  <!-- Étape 2 : Ajouter des services -->
+  <div *ngIf="currentStep === 2">
+    <h5>Choose Category</h5>
+    <div class="categories">
+      <!-- Répéter pour chaque catégorie -->
+      <div class="categorie" *ngFor="let categorie of categories" (click)="setChoosenCategory(categorie.idC)"
+        [ngClass]="categorie.idC === choosenCategoryId ?  'active-class' : '' ">
+        <i class="fas fa-bed"></i>
+        <h4>{{categorie.name}}</h4>
+      </div>
+    </div>
+    <h5>Add Service</h5>
+    <form [formGroup]="announceForm" (ngSubmit)="updateAnnonce()">
+      <div class="services" formArrayName="services">
+        <div class="service-row" *ngFor="let service of services.controls; let i = index" [formGroupName]="i">
+          <div class="input-container">
+            <input type="text" class="input-field" formControlName="name" placeholder="Service Name">
+          </div>
+
+          <div class="input-container">
+            <input type="file" class="input-field" (change)="onFileChange($event, i)">
+          </div>
+
+          <button (click)="deleteService(i)" type="button" class="delete-btn">Supprimer</button>
+        </div>
+
+        <div class="add-service-btn-container">
+          <button type="button" class="add-btn" (click)="addServices()">Ajouter un service</button>
+        </div>
+      </div>
+
+      <!-- Fermeture du div formArrayName="services" -->
+
+      <div class="form-buttons">
+        <button type="button" class="btn btn-cancel" (click)="prevStep()">Previous</button>
+        <button type="submit" class="btn btn-next">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
