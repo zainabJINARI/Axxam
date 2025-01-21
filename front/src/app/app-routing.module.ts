@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { HomeComponent } from './client/home/home.component';
-import { ClientComponent } from './client/client.component';
-
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoadingComponent } from './loading/loading.component';
 
