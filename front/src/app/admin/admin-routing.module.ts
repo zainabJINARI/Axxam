@@ -7,17 +7,14 @@ import { AnnoucementComponent } from './admin-components/annoucement/annoucement
 import { AddAnnounceComponent } from './admin-components/add-announce/add-announce.component';
 import { EditProfileComponent } from './admin-components/edit-profile/edit-profile.component';
 import { EditAnnouncementComponent } from './admin-components/edit-announcement/edit-announcement.component';
-<<<<<<< Updated upstream
 import { HostGuard } from '../guards/host.guard';
-=======
 import { NotFoundComponent } from '../not-found/not-found.component';
->>>>>>> Stashed changes
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [HostGuard], 
+    canActivate: [HostGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'reservations', component: ReservationComponent },
@@ -26,6 +23,7 @@ const routes: Routes = [
       { path: 'edit-announce/:id', component: EditAnnouncementComponent },
       { path: 'edit-profile/:username', component: EditProfileComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', component: NotFoundComponent },
     ],
   },
 ];
@@ -35,7 +33,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AdminRoutingModule {}
-
-// { path: 'announcements', component: AnnouncementsComponent },
-// { path: 'profile', component: ProfileComponent },
-// { path: 'settings', component: SettingsComponent },
