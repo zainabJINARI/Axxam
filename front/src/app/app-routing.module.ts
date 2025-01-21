@@ -9,7 +9,10 @@ import { LoadingComponent } from './loading/loading.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+<<<<<<< Updated upstream
   { path: '', redirectTo: 'client', pathMatch: 'full' },
+=======
+>>>>>>> Stashed changes
   { path: 'loading', component: LoadingComponent },
   { path: '**', component: NotFoundComponent },
 ];
