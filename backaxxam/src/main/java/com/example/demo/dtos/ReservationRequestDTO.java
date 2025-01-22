@@ -14,6 +14,7 @@ public class ReservationRequestDTO {
 	private LocalDate checkOut ;
 	private int numberOfGuests ;
 	private int nights ; 
+	private double totalPrice;
 	
 
 }

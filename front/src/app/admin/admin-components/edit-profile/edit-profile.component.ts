@@ -24,7 +24,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      username: ['', Validators.required],
+      username: [{ value: '', disabled: true }, Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       comfpassword: ['', Validators.required],

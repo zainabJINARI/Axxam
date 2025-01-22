@@ -5,4 +5,5 @@ export interface ReservationRequest {
   checkOut: string;
   numberOfGuests: number;
   nights: number;
+  totalPrice: number;
 }
