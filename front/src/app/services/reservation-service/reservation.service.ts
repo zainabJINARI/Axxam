@@ -27,11 +27,10 @@ export class ReservationService {
     payStatus: PayementStatus,
     requestDTO: ReservationRequest
   ): Observable<ReservationResponse> {
-    const token = this.authService.getToken(); // Utiliser le token de AuthService
+    const token = this.authService.getToken(); 
 
     let headers = new HttpHeaders();
 
-    // Si un token est disponible, ajouter l'en-tête Authorization
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
@@ -40,6 +39,7 @@ export class ReservationService {
 
     return this.http.post<ReservationResponse>(this.apiUrl, requestDTO, {
       headers,
+      params,
     });
   }
 
@@ -47,7 +47,7 @@ export class ReservationService {
     page: number = 1,
     size: number = 5
   ): Observable<PaginatedResponse<ReservationResponse>> {
-    const token = this.authService.getToken(); // Utilisez la méthode getToken() de AuthService pour obtenir le token
+    const token = this.authService.getToken(); 
 
     let headers = new HttpHeaders();
 

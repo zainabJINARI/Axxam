@@ -204,3 +204,95 @@ table td .action-btn:hover {
   font-weight: 400;
   margin: 20px 0px;
 }
+
+/* Style global pour le modal */
+.modal-content {
+  border-radius: 10px; /* Bords arrondis */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet d'élévation */
+  border: none; /* Supprime les bordures par défaut */
+  background-color: #f9f9f9; /* Couleur de fond douce */
+}
+
+/* En-tête du modal */
+.modal-header {
+  background-color: #70592d; /* Couleur de fond bleue */
+  color: white; /* Texte blanc */
+  border-bottom: none; /* Supprime la bordure */
+  border-radius: 5px 5px 0 0; /* Arrondi en haut uniquement */
+}
+
+.modal-title {
+  font-size: 1.5rem; /* Taille plus grande pour le titre */
+  font-weight: 600; /* Gras pour le titre */
+}
+
+/* Bouton de fermeture */
+.modal-header .close {
+  color: white; /* Icône blanche */
+  font-size: 1.2rem; /* Taille de l'icône */
+  opacity: 0.8;
+}
+
+.modal-header .close:hover {
+  opacity: 1; /* Rendre plus visible au survol */
+}
+
+/* Corps du modal */
+.modal-body {
+  padding: 20px; /* Espacement interne */
+  font-size: 1rem; /* Taille de texte agréable à lire */
+  line-height: 1.6; /* Hauteur de ligne */
+  color: #5a6268; /* Couleur du texte */
+}
+
+.modal-body h6 {
+  font-size: 1.2rem; /* Titre des détails légèrement plus grand */
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.modal-body ul {
+  list-style-type: none; /* Supprime les puces */
+  padding: 0;
+}
+
+.modal-body ul li {
+  margin-bottom: 10px; /* Espacement entre les éléments */
+}
+
+.modal-body ul li strong {
+  color: #70592d; /* Mettre en valeur les labels */
+}
+
+/* Pied de page du modal */
+.modal-footer {
+  border-top: none; /* Supprime la bordure */
+  background-color: #f1f1f1; /* Couleur douce pour le footer */
+  border-radius: 0 0 10px 10px; /* Arrondi en bas uniquement */
+}
+
+.modal-footer .btn-secondary {
+  background-color: #6c757d81; /* Couleur de bouton */
+  color: white;
+  border: none;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #5a6268b9; /* Couleur plus foncée au survol */
+}
+
+/* Responsivité pour les petits écrans */
+@media (max-width: 576px) {
+  .modal-content {
+    margin: 10px; /* Réduit les marges */
+  }
+
+  .modal-header,
+  .modal-footer {
+    text-align: center; /* Centrer le contenu */
+  }
+
+  .modal-title {
+    font-size: 1.2rem; /* Réduit la taille du titre */
+  }
+}

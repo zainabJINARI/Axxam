@@ -7,6 +7,7 @@ import { PaymentService } from '../../../services/payment-service/payment.servic
 import { ReservationService } from '../../../services/reservation-service/reservation.service';
 import { PayementStatus } from '../../enums/PaymentStatus';
 import { ReservationRequest } from '../../../models/ReservationRequest';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reservation-form',
@@ -26,7 +27,8 @@ export class ReservationFormComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private payService: PaymentService,
-    private resService: ReservationService
+    private resService: ReservationService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -79,8 +81,8 @@ export class ReservationFormComponent implements OnInit {
         checkOut: this.reservationForm.get('checkOut')?.value,
         numberOfGuests: this.reservationForm.get('numberOfGuests')?.value,
         nights: this.reservationForm.get('nights')?.value,
+        totalPrice: this.totalAmount,
       };
-
       this.createSession(requestData);
     } else {
       console.log('Le formulaire est invalide');
@@ -100,10 +102,8 @@ export class ReservationFormComponent implements OnInit {
         this.isLoading = false;
         window.location.href = response.sessionUrl;
 
-        // Vérifier correctement le statut de la session Stripe
         if (response.status === 'success') {
           console.log('La payement  Status est success !!!');
-
           this.resService
             .createReservation(PayementStatus.PAID, requestData)
             .subscribe({
@@ -112,6 +112,7 @@ export class ReservationFormComponent implements OnInit {
                   'Réservation créée avec succès:',
                   reservationResponse
                 );
+                this.toastrService.success('Réservation créée avec succès');
               },
               error: (err) => {
                 console.error(
