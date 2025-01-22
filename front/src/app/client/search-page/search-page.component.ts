@@ -18,6 +18,8 @@ export class SearchPageComponent implements OnInit {
   searchForm!: FormGroup;
   categories: any[] = [];
   isSearchActivated:boolean=false
+  public isLoading: boolean = false;
+
 
 
   constructor(
@@ -49,6 +51,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   performSearch(){
+   
     if (this.searchForm.valid) {
       const formData = this.searchForm.value;
 
@@ -58,7 +61,8 @@ export class SearchPageComponent implements OnInit {
 
       }
       formData.page = this.currentPage|| 0; 
-      formData.size = this.resultsPerPage|| 5;  
+      formData.size = this.resultsPerPage|| 5;
+      this.isLoading=true  
       this.annService.getFilteredAnnouncements(formData).subscribe({
         next:(data:any)=>{
           console.log(data)
@@ -72,6 +76,8 @@ export class SearchPageComponent implements OnInit {
         }
         this.totalPages=result
         this.total=JSON.parse(JSON.stringify(data)).totalItems
+
+        this.isLoading=false
 
         },
         error:()=>{
@@ -94,6 +100,7 @@ export class SearchPageComponent implements OnInit {
     // const fakeData = this.getFakeData(page);
     // this.results = fakeData;
 
+    this.isLoading=true
     this.annService.getAnnouncements(this.currentPage,this.resultsPerPage).subscribe({
       next:(data)=>{
         this.results= JSON.parse(JSON.stringify(data)).items
@@ -106,6 +113,7 @@ export class SearchPageComponent implements OnInit {
         }
         this.totalPages=result
         this.total=JSON.parse(JSON.stringify(data)).totalItems
+        this.isLoading=false
 
 
       },

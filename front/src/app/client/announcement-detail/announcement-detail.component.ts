@@ -12,6 +12,8 @@ export class AnnouncementDetailComponent implements OnInit {
   public isShown!: boolean;
   announcement: any;
   isReacted!: boolean;
+  public isLoading: boolean = false;
+
   constructor(
     private annSer: AnnouncementService,
     private router: ActivatedRoute,
@@ -23,6 +25,7 @@ export class AnnouncementDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading=true
     this.annSer
       .getAnnouncementById(this.router.snapshot.paramMap.get('id') || '')
       .subscribe({
@@ -38,6 +41,10 @@ export class AnnouncementDetailComponent implements OnInit {
           this.isReacted = this.autuServ.getRoles()?.includes('ROLE_USER')
             ? this.isReacted
             : true;
+
+            this.isLoading=false
+
+           
         },
       });
   }

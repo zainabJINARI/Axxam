@@ -24,6 +24,8 @@ import { ClientRoutingModule } from './client-routing.module';
 import { HeaderComponent } from './sub-components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PopupComponent } from '../popup/popup.component';
+import { SharedModule } from '../shared/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SearchPageComponent,
     ClientComponent,
     HeaderComponent,
+
   ],
   imports: [
     CommonModule,
@@ -56,7 +59,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgFor,
     NgIf,
     ReactiveFormsModule,
-  ],
+    SharedModule
+    
+],
   exports: [
     FeaturesSectionComponent,
     HeroSectionComponent,

@@ -1,4 +1,7 @@
-<main class="container ">
+
+
+<app-popup *ngIf="isLoading"></app-popup>
+<main *ngIf="!isLoading" class="container ">
     <div class="d-flex flex-row justify-content-between align-items-center py-1">
         <h2>{{announcement.title}}</h2>
         <button class="btn fw-bold"> <i class="bi bi-heart-fill"></i> Save </button>

@@ -48,3 +48,8 @@ h3{
         font-size: .8rem;
     }
 }
+
+
+.explore > .loading-overlay {
+    position:  relative !important;
+}

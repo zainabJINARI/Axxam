@@ -5,9 +5,8 @@
       <p><span>{{announcement.priceForNight}} $ </span> Per Night</p>
     </div>
     <div class="card-body">
-      <div *ngIf="isLoading" class="loading-overlay">
-        <div class="spinner"></div>
-      </div>
+      
+      <app-popup *ngIf="isLoading"></app-popup>
       <form class="d-flex flex-column" [formGroup]="reservationForm" (ngSubmit)="reserver()" *ngIf="!isLoading">
         <div class="d-flex flex-row flex-wrap  ">
           <div class="form-group">

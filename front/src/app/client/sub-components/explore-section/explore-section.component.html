@@ -1,4 +1,11 @@
-<section class="card">
+
+<div class="explore">
+    <app-popup *ngIf="isLoading"></app-popup>
+
+
+</div>
+
+<section *ngIf="!isLoading" class="card">
 
     <div class="card-header  d-flex justify-content-between align-items-center">
         <h3>Explore Popular Places</h3>

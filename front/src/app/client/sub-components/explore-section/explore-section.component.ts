@@ -11,14 +11,18 @@ export class ExploreSectionComponent implements OnInit {
 
   announcements!:any[]
   constructor(private annServ:AnnouncementService){}
+  public isLoading: boolean = false;
+
 
 
   ngOnInit(): void {
+    this.isLoading=true
     this.annServ.getAnnouncementOrderByRating().subscribe({
       next:(data)=>{
         let result = JSON.parse(JSON.stringify(data))
         this.announcements= result.content
         console.log(this.announcements)
+        this.isLoading=false
 
       },
       error:(error)=>{
